@@ -1,7 +1,28 @@
 {
-  "name": "root",
-  "private": true,
-  "devDependencies": {
-    "lerna": "^3.4.3"
+  "name": "ucf-webapp",
+  "version": "1.0.0",
+  "description": "开发思路：[大型企业应用在前端微应用视角下的思考](https://github.com/iuap-design/blog/issues/306)",
+  "main": "uba.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iuap-design/ucf-webapp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iuap-design/ucf-webapp/issues"
+  },
+  "homepage": "https://github.com/iuap-design/ucf-webapp#readme",
+  "dependencies": {
+    "mirrorx": "^0.2.12",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "tinper-bee": "^1.6.9",
+    "ucf-request": "0.0.1",
+    "ac-upload": "0.9.2",
+    "litte-app": "1.0.3"
   }
 }
