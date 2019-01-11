@@ -3,10 +3,10 @@ import * as api from "./service";
 
 export default {
     // 确定 Store 中的数据模型作用域
-    name: "order",
+    name: "sales",
     // 设置当前 Model 所需的初始化 state
     initialState: {
-        order: '',
+        text: '',
     },
     reducers: {
         /**
