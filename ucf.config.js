@@ -12,7 +12,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const Merge = require('webpack-merge');
 
 //服务启动控制器：true 启动、构建所有；['ucf-app-order'] 单独启动某些微服务模块
-const bootList = ['walsin-app-sales'];
+const bootList = true;
 
 //标准webpack配置暴露
 module.exports = (env, argv) => {
@@ -61,7 +61,7 @@ module.exports = (env, argv) => {
         entry: entries,
         output: {
             //path: path.resolve(__dirname, '..', 'ucf-publish'),
-            path: path.resolve(__dirname, 'dist'),
+            path: path.resolve(__dirname, 'ucf-public'),
             filename: env.mode == 'development' ? '[name].js' : '[name].[hash:8].js',
             chunkFilename: env.mode == 'development' ? '[name].chunk.js' : '[name].[hash:8].chunk.js',
         },
@@ -77,7 +77,8 @@ module.exports = (env, argv) => {
         optimization: {
             minimizer: env.mode != 'development' ? [
                 new UglifyJsPlugin({
-                    cache: true,
+                    test: /\.js(\?.*)?$/i,
+                    cache: 'cache',
                     parallel: true,
                     sourceMap: true // set to true if you want JS source maps
                 }),
@@ -98,7 +99,7 @@ module.exports = (env, argv) => {
             rules: [{
                 test: /\.js[x]?$/,
                 exclude: /node_modules/,
-                include: path.resolve(__dirname, 'ucf-apps'),
+                include: [path.resolve(__dirname, 'ucf-apps'),path.resolve(__dirname, 'ucf-common')],
                 use: {
                     loader: 'babel-loader',
                     options: {
@@ -170,9 +171,11 @@ module.exports = (env, argv) => {
             ...HtmlPlugin
         ]
     }, env.mode != 'development' ? {//production环境
-        //plugins: [new CleanWebpackPlugin(['dist']),
-        // new BundleAnalyzerPlugin({
-        //     analyzerMode: 'static'
-        // })]
+        plugins: [
+            new CleanWebpackPlugin(['ucf-public']),
+            // new BundleAnalyzerPlugin({
+            //     analyzerMode: 'static'
+            // })
+        ]
     } : {});
 }
