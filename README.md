@@ -2,33 +2,29 @@
 
 开发思路：[大型企业应用在前端微应用视角下的思考](https://github.com/iuap-design/blog/issues/306)
 
-## 工程规范
+
+## TODO
+
+- [ ] [框架规范说明文档]()
+- [ ] [uba 命令new的实现，uba 高度封装的实现]()
+- [ ] [基于 ucf-web 框架的 demo 案例产出]()
+- [ ] [讨论并确定 ucf-workbench 工作台的发布以及和微应用的集成调试]()
+- [ ] [结合前后端的HTTP规范封装出  ucf-request 并发布，考虑数据埋点的影响]()
+- [ ] [统一标准的 HTTP 规范]()
+- [ ] [关于ucf-common：留给项目自定义项目级的公共逻辑]()
+- [ ] [需要支持动态变量的配置，如publicPath、traceId等]()
 
 
-## uba 命令
+## 附录
 
+### 1、对 uba 的需求
 ```
 # 创建应用（单页或多页，平铺在顶级目录）
 $ uba new walsin-app-order
 # 命令行式的交互选择
 ```
 
-## demo 案例
-
-
-## 待定：workbench 发布和集成
-
-
-## ucf-request 封装
-
-
-
-
-// 发布   package name: ucf-request API、扩展
-
-## 标准 HTTP 规范
-
-
+### 2、HTTP 的部分规范
 ```
 
 {
@@ -55,11 +51,8 @@ $ uba new walsin-app-order
 }
 ```
 
-## 模型驱动 HTTP 规范
-
-
 ```
-
+// 模型驱动 HTTP 规范
 {
     // 200
     // 请求超时
@@ -75,35 +68,6 @@ $ uba new walsin-app-order
     message: ""
 }
 ```
-
-
-## 静态资源 CDN
-
-```
-{
-    publishPath: "https://cdn.yonyoucloud.com/static/"
-}
-```
-
-## 考虑专属云和公有云两种应用模式
-
-1、引用的公共资源：
-2、构建产出上云 OR 私有化
-3、动态配置（变量），配置中心。运行时
-
-
-## traceId 
-
-## 数据埋点
-
-## ucf-common的定义：留给项目自定义
-
-1、收敛：哪些东西放common
-- ucf-request
-- tinper-bee 静态资源
-- 业务模块级的公共组件？？？？？？？Header等
-2、持续更新：common的东西持续更新
-3、模块化：是否发布package。不发包
 
 
 
