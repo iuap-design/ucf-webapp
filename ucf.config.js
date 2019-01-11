@@ -112,6 +112,7 @@ module.exports = (env, argv) => {
                                 'regenerator': true
                             }],
                             '@babel/plugin-proposal-class-properties',
+                            'import-bee',
                             ['@babel/plugin-transform-runtime', {
                                 'corejs': false,
                                 'helpers': true,
