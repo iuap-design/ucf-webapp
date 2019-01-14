@@ -12,7 +12,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const Merge = require('webpack-merge');
 
 //服务启动控制器：true 启动、构建所有；['ucf-app-order'] 单独启动某些微服务模块
-const bootList = true;
+const bootList = ['demo-app-organization'];
 
 //标准webpack配置暴露
 module.exports = (env, argv) => {
@@ -66,13 +66,14 @@ module.exports = (env, argv) => {
             chunkFilename: env.mode == 'development' ? '[name].chunk.js' : '[name].[hash:8].chunk.js',
         },
         devServer: {
-            proxy: {
-                '/api': {
-                    target: 'https://cnodejs.org',
-                    secure: false,
-                    //pathRewrite: {'^/api' : ''}
-                }
-            }
+            proxy: [{
+                context: ['/mock'],
+                target: 'https://mock.yonyoucloud.com',
+                secure: false,
+                changeOrigin: true,
+                logLevel: 'debug',
+                //pathRewrite: {'^/mock' : ''}
+            }]
         },
         optimization: {
             minimizer: env.mode != 'development' ? [
@@ -99,7 +100,7 @@ module.exports = (env, argv) => {
             rules: [{
                 test: /\.js[x]?$/,
                 exclude: /node_modules/,
-                include: [path.resolve(__dirname, 'ucf-apps'),path.resolve(__dirname, 'ucf-common')],
+                include: [path.resolve(__dirname, 'ucf-apps'), path.resolve(__dirname, 'ucf-common')],
                 use: {
                     loader: 'babel-loader',
                     options: {

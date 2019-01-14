@@ -36,7 +36,7 @@ export default (url, options) => {
         }
 
         return new Promise((resolve, reject) => {
-            resolve(res);
+            resolve(res.data);
         })
     }).catch(function (err) {
         console.log(err);
