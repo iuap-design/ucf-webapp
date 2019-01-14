@@ -81,7 +81,7 @@ module.exports = (env, argv) => {
                     test: /\.js(\?.*)?$/i,
                     cache: 'cache',
                     parallel: true,
-                    sourceMap: true // set to true if you want JS source maps
+                    sourceMap: false // set to true if you want JS source maps
                 }),
                 new OptimizeCSSAssetsPlugin({})
             ] : []
