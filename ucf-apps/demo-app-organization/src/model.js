@@ -9,9 +9,9 @@ export default {
         list: [],//组织实体 ID、编码、名称
         showLoading: false,//加载Loading
         selectedList: [],//当前选择行
-        pageIndex: 0,//分页条-当前页
-        total: 0,//分页条-总记录数
-        totalPages: 0,//
+        pageIndex: 1,//分页条-当前页
+        total: 1,//分页条-总记录数
+        totalPages: 1,//
         queryParam: {},//总的查询对象
 
     },
@@ -30,7 +30,7 @@ export default {
     },
     effects: {
         /**
-         * 按钮测试数据
+         * 加载数据
          * @param {*} param
          * @param {*} getState
          */
@@ -44,13 +44,26 @@ export default {
             }
         },
         /**
-         * 按钮测试数据
+         * 删除数据
          * @param {*} param
          * @param {*} getState
          */
         async postDelete(params, getState) {
             let { selectedList: deleteList } = getState().app;
             let result = await api.postDelete(deleteList);
+            if (result.code == 200) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        /**
+         * 按钮测试数据
+         * @param {*} param
+         * @param {*} getState
+         */
+        async postInsert(params, getState) {
+            let result = await api.postInsert(params);
             if (result.code == 200) {
                 return true;
             } else {

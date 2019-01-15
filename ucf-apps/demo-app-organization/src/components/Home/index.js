@@ -10,6 +10,7 @@ import Grid from 'components/Grid';
 import Header from 'components/Header';
 import Button from 'components/Button';
 import Alert from 'components/Alert';
+import OrgModal from '../OrgModal';
 import SearchArea from '../SearchArea';
 
 import './index.less';
@@ -20,6 +21,9 @@ class Home extends Component {
         this.state = {
             tableHeight: 0,//动态计算表格高度
             showPop: false,//是否显示Pop
+            btnFlag: 0,//新增0、修改1、查看2
+            editModelVisible: false,//新增、编辑
+            rowData: {},//修改的时候数据
         }
     }
     componentWillMount() {
@@ -77,7 +81,11 @@ class Home extends Component {
      *
      */
     handlerAdd = () => {
-
+        this.setState({
+            editModelVisible: true,
+            btnFlag: 0,
+            rowData: {}
+        });
     }
 
     /**
@@ -88,7 +96,11 @@ class Home extends Component {
      * @param {number} index 当前行索引
      */
     handlerEdit = (text, record, index) => {
-        console.log(text, record, index)
+        this.setState({
+            editModelVisible: true,
+            btnFlag: 1,
+            rowData: record
+        });
     }
 
     /**
@@ -136,9 +148,19 @@ class Home extends Component {
         }
     }
 
+    /**
+     * 弹出信息框取消
+     *
+     */
+    onClickModalClose = () => {
+        this.setState({
+            editModelVisible: false
+        });
+    }
+
     render() {
         const _this = this;
-        let { tableHeight, showPop } = _this.state;
+        let { tableHeight, showPop, editModelVisible, btnFlag, rowData } = _this.state;
         let { list, showLoading, pageIndex, totalPages, total, queryParam } = _this.props;
         //分页条数据
         const paginationObj = {
@@ -175,6 +197,12 @@ class Home extends Component {
                     data={list}//数据
                     getSelectedDataFunc={this.getSelectedDataFunc}//选择数据后的回调
                     scroll={{ y: tableHeight }}//固定表头
+                />
+                <OrgModal
+                    rowData={rowData}
+                    close={this.onClickModalClose}
+                    btnFlag={btnFlag}
+                    editModelVisible={editModelVisible}
                 />
                 <Loading fullScreen={true} show={showLoading} loadingType="line" />
             </div>

@@ -2,7 +2,8 @@ import request from "utils/request";
 //定义接口地址
 const URL = {
     "POST_LIST": `${GROBAL_HTTP_PREFIX}/mock/326/loadList`,
-    "POST_DELETE": `${GROBAL_HTTP_PREFIX}/mock/326/deleteList`
+    "POST_DELETE": `${GROBAL_HTTP_PREFIX}/mock/326/deleteList`,
+    "POST_INSERT": `${GROBAL_HTTP_PREFIX}/mock/326/insert`
 }
 
 /**
@@ -22,6 +23,17 @@ export const getList = (data) => {
  */
 export const postDelete = (data) => {
     return request(URL.POST_DELETE, {
+        method: "post",
+        data
+    });
+}
+
+/**
+ * 添加数据
+ * @param {object} params
+ */
+export const postInsert = (data) => {
+    return request(URL.POST_INSERT, {
         method: "post",
         data
     });
