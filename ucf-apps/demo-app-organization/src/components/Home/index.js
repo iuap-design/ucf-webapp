@@ -68,10 +68,10 @@ class Home extends Component {
         let tableHeight = 0;
         if (isopen) {
             //展开的时候并且适配对应页面数值px
-            tableHeight = getHeight() - 420
+            tableHeight = getHeight() - 400
         } else {
             //收起的时候并且适配对应页面数值px
-            tableHeight = getHeight() - 270
+            tableHeight = getHeight() - 280
         }
         this.setState({ tableHeight });
     }

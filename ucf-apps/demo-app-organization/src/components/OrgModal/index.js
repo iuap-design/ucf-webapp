@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { Col, Row, FormControl, Label } from "tinper-bee";
 import { actions } from "mirrorx";
 import Form from 'bee-form';
-import { Error } from 'utils';
+import { Error, Info } from 'utils';
 import PopDialog from 'components/Pop';
 import FormError from 'components/FormError';
 
@@ -40,6 +40,7 @@ class OrgModal extends Component {
                         if (resultInsert) {
                             this.onCloseEdit();
                             actions.app.loadList();
+                            Info('数据添加成功,已刷新');
                         } else {
                             Error('添加数据失败');
                         }
@@ -49,6 +50,7 @@ class OrgModal extends Component {
                         if (resultUpdate) {
                             this.onCloseEdit();
                             actions.app.loadList();
+                            Info('数据修改成功,已刷新');
                         } else {
                             Error('修改数据失败');
                         }
