@@ -2,7 +2,7 @@
  * 公共函数类
  */
 
- 
+
 import { Message } from 'tinper-bee';
 
 /**
@@ -17,7 +17,7 @@ export const Success = (msg) => {
  * @param {string} 错误提示的文字
  */
 export const Error = (msg) => {
-    Message.create({ content: msg, color: 'danger' });
+    Message.create({ content: msg, color: 'danger', duration: 30 });
 }
 /**
  * @description 警告提示

@@ -36,6 +36,7 @@ class SearchArea extends Component {
      * @param {json} values 表单数据
      */
     search = (error, values) => {
+        let queryParam = deepClone(this.props.queryParam);
         actions.app.loadList(values);
     }
 
@@ -44,7 +45,7 @@ class SearchArea extends Component {
      *
      */
     reset = () => {
-        actions.app.loadList();
+        //actions.app.loadList();
     }
 
 

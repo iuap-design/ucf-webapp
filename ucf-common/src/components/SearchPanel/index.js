@@ -26,7 +26,7 @@ const defaultProps = {
     search: () => { },
     reset: () => { },
     title: "查询与筛选",
-    resetName: "清除查询",
+    resetName: "清除",
     searchName: "查询"
 };
 
@@ -93,7 +93,7 @@ class SearchPanel extends Component {
                 {children}
                 <div className='search-panel-btn'>
                     <Button className='submit-btn' iconType="uf-search" onClick={this.search}>{searchName}</Button>
-                    <Button className='reset-btn' onClick={this.reset}>{resetName}</Button>
+                    <Button className='reset-btn' iconType="uf-repeat" onClick={this.reset}>{resetName}</Button>
                 </div>
             </Panel>
         )

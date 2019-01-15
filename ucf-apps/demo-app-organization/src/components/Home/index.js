@@ -4,10 +4,12 @@
 
 import React, { Component } from 'react';
 import mirror, { actions } from 'mirrorx';
-import { getHeight } from 'utils';
-import { Loading } from 'tinper-bee';
+import { getHeight, Warning, Error, Info } from 'utils';
+import { Loading, Icon } from 'tinper-bee';
 import Grid from 'components/Grid';
 import Header from 'components/Header';
+import Button from 'components/Button';
+import Alert from 'components/Alert';
 import SearchArea from '../SearchArea';
 
 import './index.less';
@@ -16,7 +18,8 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tableHeight: 0
+            tableHeight: 0,//动态计算表格高度
+            showPop: false,//是否显示Pop
         }
     }
     componentWillMount() {
@@ -29,17 +32,16 @@ class Home extends Component {
     //定义Grid的Columns
     column = [
         {
-            title: "操作",
+            title: "操作区",
             dataIndex: "op",
             key: "op",
-            width: 110,
-            fixed:'left'
-        },
-        {
-            title: "ID",
-            dataIndex: "id",
-            key: "id",
-            width: 150
+            width: 60,
+            fixed: 'left',
+            render: (text, record, index) => {
+                return <div className="org-grid-operate">
+                    <Icon onClick={() => this.handlerEdit(text, record, index)} type="uf-pencil-s" />
+                </div>
+            }
         },
         {
             title: "编码",
@@ -69,10 +71,75 @@ class Home extends Component {
         }
         this.setState({ tableHeight });
     }
+
+    /**
+     * 添加组织数据（Modal）
+     *
+     */
+    handlerAdd = () => {
+
+    }
+
+    /**
+     * 操作栏内的编辑
+     *
+     * @param {string} text 该字段的值
+     * @param {object} record 整行字段的记录
+     * @param {number} index 当前行索引
+     */
+    handlerEdit = (text, record, index) => {
+        console.log(text, record, index)
+    }
+
+    /**
+     *  批量删除组织数据（Modal）
+     *
+     */
+    handlerDelete = () => {
+        let { selectedList: deleteList } = this.props;
+        if (deleteList.length > 0) {
+            this.setState({ showPop: true });
+        } else {
+            Warning('请选择要删除的数据');
+        }
+    }
+
+    /**
+     * 选中后的checkbox
+     *
+     * @param {array} selected 选择后返回的选中项，包含_checked字段
+     */
+    getSelectedDataFunc = (selectedList) => {
+        actions.app.updateState({ selectedList });
+    }
+
+    /**
+     * 删除确认框的取消
+     *
+     */
+    onClickPopCancel = () => {
+        this.setState({ showPop: false });
+    }
+
+    /**
+     * 确认删除开始发送请求给后端
+     *
+     */
+    onClickPopDelete = async () => {
+        this.setState({ showPop: false });
+        let result = await actions.app.postDelete();
+        if (result) {
+            actions.app.loadList();
+            Info('删除数据操作成功，已刷新');
+        } else {
+            Error('删除数据发生了错误');
+        }
+    }
+
     render() {
         const _this = this;
-        let { tableHeight } = _this.state;
-        let { list, showLoading, pageIndex, totalPages, total, queryParam, pageSize } = _this.props;
+        let { tableHeight, showPop } = _this.state;
+        let { list, showLoading, pageIndex, totalPages, total, queryParam } = _this.props;
         //分页条数据
         const paginationObj = {
             activePage: pageIndex,//当前页
@@ -87,11 +154,21 @@ class Home extends Component {
                 <SearchArea
                     queryParam={queryParam}
                     status={status}
-                    pageSize={pageSize}
                     searchOpen={true}
                     onCallback={this.resetTableHeight}
                 />
+                <div className="org-buttons">
+                    <Button iconType="uf-plus" onClick={this.handlerAdd}>新增</Button>
+                    <Button iconType="uf-del" onClick={this.handlerDelete}>删除</Button>
+                    <Alert
+                        show={showPop}
+                        context="是否要删除 ?"
+                        confirmFn={this.onClickPopDelete}
+                        cancelFn={this.onClickPopCancel}
+                    />
+                </div>
                 <Grid
+                    className="org-grid"
                     rowKey={'id'}//表格内使用的唯一key用于性能优化
                     columns={this.column}//定义列数据
                     paginationObj={paginationObj}//分页数据

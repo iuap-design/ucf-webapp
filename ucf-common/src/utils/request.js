@@ -3,6 +3,8 @@
  */
 
 import axios from "axios";
+import { actions } from "mirrorx";
+import { Error } from 'utils';
 
 //CSRF
 let x_xsrf_token = '',
@@ -13,6 +15,7 @@ let x_xsrf_token = '',
  * 参数：options 请求参数选项，包括 method 方法类型、params GET参数、data POST参数
  */
 export default (url, options) => {
+    actions.app.updateState({ showLoading: true });
     let params = Object.assign({}, options.params, options.method.toLowerCase() == 'get' ? {
         r: Math.random()
     } : {});
@@ -34,16 +37,20 @@ export default (url, options) => {
         if (inner_x_xsrf_token) {
             x_xsrf_token = inner_x_xsrf_token;
         }
-
         return new Promise((resolve, reject) => {
-            resolve(res.data);
-        })
+            actions.app.updateState({ showLoading: false });
+            if (res.data.code && res.data.code == 200) {
+                resolve(res.data);
+            } else {
+                reject({ code: -1, data: [], message: '服务器相应code错误' });
+            }
+        });
     }).catch(function (err) {
+        actions.app.updateState({ showLoading: false });
         console.log(err);
         let res = err.response;
         if (res) {
             let { status, data: { msg } } = res;
-
             switch (status) {
                 case 401:
                     console.log("RBAC鉴权失败!" + msg);
@@ -53,8 +60,11 @@ export default (url, options) => {
                     break;
                 default:
             }
-
         }
-
+        return new Promise((resolve, reject) => {
+            let errMsg = `request发生服务器 http ${status} 请求错误!`;
+            Error(errMsg);
+            reject({ code: -1, data: [], message: errMsg });
+        });
     });
 }
