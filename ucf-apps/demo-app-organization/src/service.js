@@ -3,7 +3,8 @@ import request from "utils/request";
 const URL = {
     "POST_LIST": `${GROBAL_HTTP_PREFIX}/mock/326/loadList`,
     "POST_DELETE": `${GROBAL_HTTP_PREFIX}/mock/326/deleteList`,
-    "POST_INSERT": `${GROBAL_HTTP_PREFIX}/mock/326/insert`
+    "POST_INSERT": `${GROBAL_HTTP_PREFIX}/mock/326/insert`,
+    "POST_UPDATE": `${GROBAL_HTTP_PREFIX}/mock/326/update`
 }
 
 /**
@@ -34,6 +35,17 @@ export const postDelete = (data) => {
  */
 export const postInsert = (data) => {
     return request(URL.POST_INSERT, {
+        method: "post",
+        data
+    });
+}
+
+/**
+ * 修改数据
+ * @param {object} params
+ */
+export const postUpdate = (data) => {
+    return request(URL.POST_UPDATE, {
         method: "post",
         data
     });

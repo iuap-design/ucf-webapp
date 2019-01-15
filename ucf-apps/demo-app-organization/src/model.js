@@ -58,12 +58,25 @@ export default {
             }
         },
         /**
-         * 按钮测试数据
+         * 添加数据
          * @param {*} param
          * @param {*} getState
          */
         async postInsert(params, getState) {
             let result = await api.postInsert(params);
+            if (result.code == 200) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        /**
+         * 修改数据
+         * @param {*} param
+         * @param {*} getState
+         */
+        async postUpdate(params, getState) {
+            let result = await api.postUpdate(params);
             if (result.code == 200) {
                 return true;
             } else {

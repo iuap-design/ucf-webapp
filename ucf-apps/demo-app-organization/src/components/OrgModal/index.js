@@ -21,21 +21,23 @@ class OrgModal extends Component {
     }
     titleArr = ["新增", "修改", "详情"];
 
-    componentWillReceiveProps(nextProps, prevProps) {
-        console.log('prevProps', prevProps);
-        console.log('nextProps', nextProps);
-
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            btnFlag: nextProps.btnFlag,
+            rowData: nextProps.rowData
+        });
     }
 
     onSubmitEdit = () => {
         let _this = this;
         const { btnFlag } = _this.state;
+        const { rowData: { id } } = _this.props;
         _this.props.form.validateFields(async (err, values) => {
             if (!err) {
                 switch (btnFlag) {
                     case 0:
-                        let result = await actions.app.postInsert(values);
-                        if (result) {
+                        let resultInsert = await actions.app.postInsert(values);
+                        if (resultInsert) {
                             this.onCloseEdit();
                             actions.app.loadList();
                         } else {
@@ -43,7 +45,13 @@ class OrgModal extends Component {
                         }
                         break;
                     case 1:
-
+                        let resultUpdate = await actions.app.postUpdate({ id, ...values });
+                        if (resultUpdate) {
+                            this.onCloseEdit();
+                            actions.app.loadList();
+                        } else {
+                            Error('修改数据失败');
+                        }
                         break;
                     case 2:
 
