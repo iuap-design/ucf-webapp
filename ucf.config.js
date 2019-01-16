@@ -79,7 +79,7 @@ module.exports = (env, argv) => {
             minimizer: env.mode != 'development' ? [
                 new UglifyJsPlugin({
                     test: /\.js(\?.*)?$/i,
-                    cache: 'cache',
+                    cache: '.cache',
                     parallel: true,
                     sourceMap: false // set to true if you want JS source maps
                 }),
