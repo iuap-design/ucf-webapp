@@ -120,7 +120,7 @@ class OrgModal extends Component {
                         <Col md={6} xs={6} sm={6}>
                             <FormItem>
                                 <Label>编码</Label>
-                                <FormControl disabled={false}
+                                <FormControl disabled={btnFlag == 2}
                                     {...getFieldProps('code', {
                                         initialValue: code || '',
                                         rules: [{
@@ -136,7 +136,7 @@ class OrgModal extends Component {
                         <Col md={6} xs={6} sm={6}>
                             <FormItem>
                                 <Label>名称</Label>
-                                <FormControl disabled={false}
+                                <FormControl disabled={btnFlag == 2}
                                     {...getFieldProps('name', {
                                         initialValue: name || '',
                                         rules: [{

@@ -56,7 +56,7 @@ class Grid extends Component {
         showHeaderMenu={false}//是否显示菜单
         dragborder={false}//是否调整列宽
         draggable={false}//是否拖拽
-        syncHover={false}//是否同步状态
+        syncHover={true}//是否同步状态
       />
     );
   }

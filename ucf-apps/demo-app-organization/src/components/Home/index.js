@@ -39,11 +39,12 @@ class Home extends Component {
             title: "操作区",
             dataIndex: "op",
             key: "op",
-            width: 60,
+            width: 90,
             fixed: 'left',
             render: (text, record, index) => {
                 return <div className="org-grid-operate">
-                    <Icon onClick={() => this.handlerEdit(text, record, index)} type="uf-pencil-s" />
+                    <Icon onClick={() => this.handlerEdit(text, record, index, 1)} type="uf-pencil-s" />
+                    <Icon onClick={() => this.handlerEdit(text, record, index, 2)} type="uf-search" />
                 </div>
             }
         },
@@ -95,10 +96,10 @@ class Home extends Component {
      * @param {object} record 整行字段的记录
      * @param {number} index 当前行索引
      */
-    handlerEdit = (text, record, index) => {
+    handlerEdit = (text, record, index, btnFlag) => {
         this.setState({
             editModelVisible: true,
-            btnFlag: 1,
+            btnFlag,
             rowData: record
         });
     }
@@ -156,6 +157,19 @@ class Home extends Component {
         this.setState({
             editModelVisible: false
         });
+    }
+
+    /**
+     * 分页条点击第几页或者输入第几页点击确定回调
+     *
+     * @param {number} pageIndex 当前跳转第几页
+     */
+    freshData = (pageIndex) => {
+        console.log('跳转到', pageIndex)
+    }
+
+    onDataNumSelect = (numberIndex, pageSize) => {
+        console.log('每页显示', pageSize);
     }
 
     render() {
