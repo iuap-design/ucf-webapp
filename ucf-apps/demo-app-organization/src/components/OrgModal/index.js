@@ -156,4 +156,5 @@ class OrgModal extends Component {
     }
 }
 
+OrgModal.displayName = 'OrgModal';
 export default Form.createForm()(OrgModal);

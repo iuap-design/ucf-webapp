@@ -4,7 +4,7 @@
 
 import React, { Component } from 'react';
 import mirror, { actions } from 'mirrorx';
-import { getHeight, Warning, Error, Info } from 'utils';
+import { getHeight, Warning, Error, Info, deepClone } from 'utils';
 import { Loading, Icon } from 'tinper-bee';
 import Grid from 'components/Grid';
 import Header from 'components/Header';
@@ -165,6 +165,9 @@ class Home extends Component {
      * @param {number} pageIndex 当前跳转第几页
      */
     freshData = (pageIndex) => {
+        let queryParam = deepClone(this.props.queryParam);
+        queryParam['pageIndex'] = pageIndex;
+        actions.app.updateState({ queryParam });
         console.log('跳转到', pageIndex)
     }
 
@@ -175,12 +178,11 @@ class Home extends Component {
     render() {
         const _this = this;
         let { tableHeight, showPop, editModelVisible, btnFlag, rowData } = _this.state;
-        let { list, showLoading, pageIndex, totalPages, total, queryParam } = _this.props;
+        let { list, showLoading, queryParam } = _this.props;
         //分页条数据
         const paginationObj = {
-            activePage: pageIndex,//当前页
-            total: total,//总条数
-            items: totalPages,
+            activePage: queryParam.pageIndex,//当前页
+            total: queryParam.total,//总条数
             freshData: _this.freshData,//刷新数据
             onDataNumSelect: _this.onDataNumSelect,//选择记录行
         }
@@ -208,15 +210,15 @@ class Home extends Component {
                     rowKey={'id'}//表格内使用的唯一key用于性能优化
                     columns={this.column}//定义列数据
                     paginationObj={paginationObj}//分页数据
-                    data={list}//数据
+                    data={list}//grid数据
                     getSelectedDataFunc={this.getSelectedDataFunc}//选择数据后的回调
-                    scroll={{ y: tableHeight }}//固定表头
+                    scroll={{ y: tableHeight }}//固定表头出现y滚动条动态计算
                 />
                 <OrgModal
-                    rowData={rowData}
-                    close={this.onClickModalClose}
-                    btnFlag={btnFlag}
-                    editModelVisible={editModelVisible}
+                    rowData={rowData}//弹窗内需要的数据，有数据就是修改，无数据就是新增
+                    close={this.onClickModalClose}//关闭窗体回调
+                    btnFlag={btnFlag}//操作按钮状态也代表当前新增、修改、查看不同模式
+                    editModelVisible={editModelVisible}//显示弹出框
                 />
                 <Loading fullScreen={true} show={showLoading} loadingType="line" />
             </div>
@@ -224,4 +226,5 @@ class Home extends Component {
     }
 }
 
+Home.displayName = 'Home';
 export default Home;

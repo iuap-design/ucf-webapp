@@ -79,4 +79,5 @@ class SearchArea extends Component {
     }
 }
 
+SearchArea.displayName = 'SearchArea';
 export default Form.createForm()(SearchArea)

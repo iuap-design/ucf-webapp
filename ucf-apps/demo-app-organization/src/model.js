@@ -1,3 +1,6 @@
+/**
+ * 数据模型类
+ */
 import { actions } from "mirrorx";
 import * as api from "./service";
 
@@ -9,11 +12,10 @@ export default {
         list: [],//组织实体 ID、编码、名称
         showLoading: false,//加载Loading
         selectedList: [],//当前选择行
-        pageIndex: 1,//分页条-当前页
-        total: 1,//分页条-总记录数
-        totalPages: 1,//
-        queryParam: {},//总的查询对象
-
+        queryParam: {//总的查询对象
+            pageIndex: 1,//分页条-当前页
+            total: 50,//分页条-总记录数
+        },
     },
     reducers: {
         /**
