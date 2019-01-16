@@ -9,9 +9,9 @@ const defaultProps = {
   data: []
 };
 const defualtPaginationParam = {
-  dataNumSelect: ["5", "10", "15", "20", "25", "50", "All"],
+  dataNumSelect: ["5", "10", "15", "20", "25", "50"],
   verticalPosition: "top",
-  dataNum: 4,
+  dataNum: 2,
 };
 
 class Grid extends Component {

@@ -165,14 +165,30 @@ class Home extends Component {
      * @param {number} pageIndex 当前跳转第几页
      */
     freshData = (pageIndex) => {
+        //抽出原有查询条件
         let queryParam = deepClone(this.props.queryParam);
+        //修改现有查询条件
         queryParam['pageIndex'] = pageIndex;
+        //写入查询条件
         actions.app.updateState({ queryParam });
-        console.log('跳转到', pageIndex)
+        actions.app.loadList();
     }
 
+    /**
+     * 分页条下拉显示每页N条回调
+     *
+     * @param {*} numberIndex 当前下拉的索引
+     * @param {*} pageSize 每页显示N条回调
+     */
     onDataNumSelect = (numberIndex, pageSize) => {
-        console.log('每页显示', pageSize);
+        //抽出原有查询条件
+        let queryParam = deepClone(this.props.queryParam);
+        //修改现有查询条件
+        queryParam['pageSize'] = Number(pageSize);//当前显示几条
+        queryParam['pageIndex'] = 1;//当前页码
+        //写入查询条件
+        actions.app.updateState({ queryParam });
+        actions.app.loadList();
     }
 
     render() {
@@ -182,9 +198,10 @@ class Home extends Component {
         //分页条数据
         const paginationObj = {
             activePage: queryParam.pageIndex,//当前页
+            items: Math.ceil(queryParam.total / queryParam.pageSize),//总分页数
             total: queryParam.total,//总条数
-            freshData: _this.freshData,//刷新数据
-            onDataNumSelect: _this.onDataNumSelect,//选择记录行
+            freshData: _this.freshData,//点击第几页跳转
+            onDataNumSelect: _this.onDataNumSelect,//下拉选择每页选择多少条
         }
         return (
             <div className="home-wrap">

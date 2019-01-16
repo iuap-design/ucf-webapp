@@ -27,7 +27,7 @@ class SearchArea extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+
         }
     }
 
@@ -37,7 +37,8 @@ class SearchArea extends Component {
      */
     search = (error, values) => {
         let queryParam = deepClone(this.props.queryParam);
-        actions.app.loadList(values);
+        actions.app.updateState({ queryParam: Object.assign({}, queryParam, values) });
+        actions.app.loadList({ ...queryParam, ...values });
     }
 
     /**
@@ -45,7 +46,7 @@ class SearchArea extends Component {
      *
      */
     reset = () => {
-        //actions.app.loadList();
+        // actions.app.loadList();
     }
 
 

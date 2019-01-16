@@ -13,8 +13,10 @@ export default {
         showLoading: false,//加载Loading
         selectedList: [],//当前选择行
         queryParam: {//总的查询对象
-            pageIndex: 1,//分页条-当前页
-            total: 50,//分页条-总记录数
+            pageIndex: 0,//分页条-当前页
+            pageSize: 0,//分页条-当前显示N页
+            total: 0,//分页条-总记录数
+            items: 0,//分页条-当前有N页
         },
     },
     reducers: {
@@ -40,8 +42,12 @@ export default {
             let { queryParam } = getState().app;
             let result = await api.getList(params || queryParam);
             if (result.code == 200) {
+                queryParam['pageIndex'] = 1;
+                queryParam['pageSize'] = 15;
+                queryParam['total'] = 50;
                 actions.app.updateState({
-                    list: result.data
+                    list: result.data,
+                    queryParam
                 });
             }
         },
