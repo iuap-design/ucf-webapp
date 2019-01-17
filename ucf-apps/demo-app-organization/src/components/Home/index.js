@@ -111,7 +111,12 @@ class Home extends Component {
     handlerDelete = () => {
         let { selectedList: deleteList } = this.props;
         if (deleteList.length > 0) {
-            this.setState({ showPop: true });
+            if (deleteList.length > 1) {//目前删除仅支持单条
+                Warning('请选择单条进行删除操作');
+            } else {
+                this.setState({ showPop: true });
+            }
+
         } else {
             Warning('请选择要删除的数据');
         }
