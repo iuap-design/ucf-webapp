@@ -12,7 +12,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const Merge = require('webpack-merge');
 
 //服务启动控制器：true 启动、构建所有；['ucf-app-order'] 单独启动某些微服务模块
-const bootList = ['demo-app-organization'];
+const bootList = ['demo-app-org', 'demo-app-staff'];
 
 //标准webpack配置暴露
 module.exports = (env, argv) => {
