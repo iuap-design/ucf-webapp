@@ -105,7 +105,8 @@ class OrgModal extends Component {
         let btns = _this.onHandleBtns(btnFlag);
         const {
             code,
-            name
+            name,
+            ts
         } = rowData;
         return (
             <div>
@@ -147,6 +148,11 @@ class OrgModal extends Component {
                                     })}
                                 />
                                 <FormError errorMsg={getFieldError('name')} />
+                                <FormControl type="hidden"
+                                    {...getFieldProps('ts', {
+                                        initialValue: ts
+                                    })}
+                                />
                             </FormItem>
                         </Col>
                     </Row>
