@@ -1,3 +1,7 @@
+/**
+ * 数据模型类
+ */
+
 import { actions } from "mirrorx";
 import * as api from "./service";
 

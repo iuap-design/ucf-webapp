@@ -15,7 +15,7 @@ import SearchArea from '../SearchArea';
 
 import './index.less';
 
-class Home extends Component {
+class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -248,5 +248,5 @@ class Home extends Component {
     }
 }
 
-Home.displayName = 'Home';
-export default Home;
+App.displayName = 'App';
+export default App;

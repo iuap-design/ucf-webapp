@@ -1,3 +1,7 @@
+/**
+ * 容器类组件
+ */
+
 import mirror, { connect } from 'mirrorx';
 import Home from './routes/home';
 import model from './model'

@@ -1,15 +1,20 @@
+/**
+ * App模块
+ */
+
 import React, { Component } from 'react';
 import mirror, { actions } from 'mirrorx';
 import './index.less';
 
-class Home extends Component {
+class App extends Component {
     render() {
         return (
-            <div className="home-wrap">
+            <div className="app-wrap">
                 Home
             </div>
         );
     }
 }
 
-export default Home;
+App.displayName = "App";
+export default App;
