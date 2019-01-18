@@ -1,7 +1,7 @@
 /**
  * 服务请求类
  */
-import request from "utils/request";
+import request from "ucf-request";
 //定义接口地址
 const URL = {
     "GET_LIST":  `${GROBAL_HTTP_PREFIX}/order/list`

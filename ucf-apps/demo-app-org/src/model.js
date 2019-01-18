@@ -13,11 +13,17 @@ export default {
         showLoading: false,//加载Loading
         selectedList: [],//当前选择行
         queryParam: {//总的查询对象
-            pageIndex: 0,//分页条-当前页
-            pageSize: 0,//分页条-当前显示N页
-            total: 0,//分页条-总记录数
-            items: 0,//分页条-当前有N页
-        },
+            searchMap: {
+                pageIndex: 0,//分页条-当前页
+                pageSize: 25,//分页条-当前显示N页
+                whereStatements: []
+                // whereStatements: [{
+                //     condition: "LIKE",
+                //     value: "",
+                //     key: "name"
+                // }],//查询条件
+            }
+        }
     },
     reducers: {
         /**
@@ -42,12 +48,10 @@ export default {
             let { queryParam } = getState().app;
             let result = await api.getList(params || queryParam);
             if (result.code == 200) {
-                queryParam['pageIndex'] = 1;
-                queryParam['pageSize'] = 15;
-                queryParam['total'] = 50;
+                // queryParam['searchMap']['pageIndex'] = 1;
+                // queryParam['searchMap']['pageSize'] = 15;
                 actions.app.updateState({
-                    list: result.data,
-                    queryParam
+                    list: result.data.content
                 });
             }
         },
@@ -58,7 +62,7 @@ export default {
          */
         async postDelete(params, getState) {
             let { selectedList: deleteList } = getState().app;
-            let result = await api.postDelete({ id: deleteList[0]['id'] });
+            let result = await api.postDelete([deleteList[0]['id']]);
             if (result.code == 200) {
                 return true;
             } else {

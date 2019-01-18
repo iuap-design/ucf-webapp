@@ -104,6 +104,7 @@ class OrgModal extends Component {
         const { getFieldProps, getFieldError } = form;
         let btns = _this.onHandleBtns(btnFlag);
         const {
+            id,
             code,
             name,
             ts
@@ -125,7 +126,6 @@ class OrgModal extends Component {
                                     {...getFieldProps('code', {
                                         initialValue: code || '',
                                         rules: [{
-                                            type: 'string',
                                             required: true,
                                             message: '请输入编码',
                                         }]
@@ -141,13 +141,17 @@ class OrgModal extends Component {
                                     {...getFieldProps('name', {
                                         initialValue: name || '',
                                         rules: [{
-                                            type: 'string',
                                             required: true,
                                             message: '请输入名称',
                                         }]
                                     })}
                                 />
                                 <FormError errorMsg={getFieldError('name')} />
+                                <FormControl type="hidden"
+                                    {...getFieldProps('id', {
+                                        initialValue: id
+                                    })}
+                                />
                                 <FormControl type="hidden"
                                     {...getFieldProps('ts', {
                                         initialValue: ts

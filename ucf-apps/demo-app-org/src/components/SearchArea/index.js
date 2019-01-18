@@ -37,8 +37,20 @@ class SearchArea extends Component {
      */
     search = (error, values) => {
         let queryParam = deepClone(this.props.queryParam);
-        actions.app.updateState({ queryParam: Object.assign({}, queryParam, values) });
-        actions.app.loadList({ ...queryParam, ...values });
+        // console.log(queryParam);
+        let statement = [];//queryParam['searchMap']['whereStatements'];
+        let Keys = Object.keys(values);
+        let Vals = Object.values(values);
+        for (let i = 0; i < Keys.length; i++) {
+            statement.push({
+                condition: 'LIKE',
+                key: Keys[i],
+                value: Vals[i]
+            });
+        }
+        queryParam['searchMap']['whereStatements'] = statement;
+        actions.app.updateState({ queryParam });
+        actions.app.loadList();
     }
 
     /**

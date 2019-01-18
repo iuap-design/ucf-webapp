@@ -67,8 +67,8 @@ module.exports = (env, argv) => {
         },
         devServer: {
             proxy: [{
-                context: ['/mock'],
-                target: 'https://mock.yonyoucloud.com',
+                context: ['/iuap'],
+                target: 'http://ucf-org-demo.test.app.yyuap.com',
                 secure: false,
                 changeOrigin: true,
                 logLevel: 'debug',
