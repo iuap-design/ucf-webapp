@@ -2,6 +2,7 @@
  * 服务请求类
  */
 import request from "ucf-request";
+import { actions } from 'mirrorx';
 //定义接口地址
 const URL = {
     "POST_LIST": `${GROBAL_HTTP_PREFIX}/mock/326/loadList`,
@@ -17,7 +18,9 @@ const URL = {
 export const getList = (data) => {
     return request(URL.POST_LIST, {
         method: "post",
-        data
+        data,
+        start: () => actions.app.updateState({ showLoading: true }),
+        end: () => actions.app.updateState({ showLoading: false })
     });
 }
 
@@ -28,7 +31,9 @@ export const getList = (data) => {
 export const postDelete = (data) => {
     return request(URL.POST_DELETE, {
         method: "post",
-        data
+        data,
+        start: () => actions.app.updateState({ showLoading: true }),
+        end: () => actions.app.updateState({ showLoading: false })
     });
 }
 
@@ -39,7 +44,9 @@ export const postDelete = (data) => {
 export const postInsert = (data) => {
     return request(URL.POST_INSERT, {
         method: "post",
-        data
+        data,
+        start: () => actions.app.updateState({ showLoading: true }),
+        end: () => actions.app.updateState({ showLoading: false })
     });
 }
 
@@ -50,6 +57,8 @@ export const postInsert = (data) => {
 export const postUpdate = (data) => {
     return request(URL.POST_UPDATE, {
         method: "post",
-        data
+        data,
+        start: () => actions.app.updateState({ showLoading: true }),
+        end: () => actions.app.updateState({ showLoading: false })
     });
 }
