@@ -44,6 +44,14 @@ $ npm run build
 ```
 内置已经集成ucf-scripts的启动
 
+## 访问具体模块
+
+启动器bootList的模块名字就是我们的访问路径，例如：`ucf-apps/demo-app-org`下的文件夹就是我们运行后的模块路径
+
+```bash
+http://127.0.0.1:3000/demo-app-org
+```
+
 ## 启动方式对比优劣
 
 全局启动和项目内脚本启动区别：
