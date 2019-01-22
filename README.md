@@ -66,6 +66,8 @@ http://127.0.0.1:3000/demo-app-org
 
 UCF微服务前端工程核心配置文件只有一个`ucf.config.js`下面对配置文件说明：
 
+**下面的节点不使用可以删除，做到精简**
+
 ```js
 module.exports = () => {
     return {
