@@ -98,6 +98,8 @@ module.exports = () => {
                 url: 'http://iuap-meger-demo.test.app.yyuap.com'
             }
         ],
+        // 构建资源的时候产出sourceMap，调试服务不会生效
+        source_map: true,
         // 全局环境变量
         global_env: {
             GROBAL_HTTP_CTX: JSON.stringify("/iuap_demo"),
@@ -131,6 +133,7 @@ externals | 排除指定的包用外部变量代理提升打包性能 | null | �
 loader | 内置加载器无法处理需要单独去设置处理 | [] | 同webpack4 loader | 
 devPlugins | 开发环境加载的插件 | [] | 同webpack4 plugin | 开发阶段使用的插件
 buildPlugins | 生产环境加载的插件 | [] | 同webpack4 plugin | 生产阶段使用的插件
+source_map | 构建资源生产环境的时候产出sourceMap | false | true,false | -
 
 目前内置了alias有以下几个变量
 
