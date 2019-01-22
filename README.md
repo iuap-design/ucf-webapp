@@ -141,6 +141,14 @@ buildPlugins | 生产环境加载的插件 | [] | 同webpack4 plugin | 生产阶
     utils: path.resolve('.', 'ucf-common/src/utils/')
 }
 ```
+当然，使用css、less的时候遇到使用背景图片的时候可以使用以下：
+
+`~static` 等同于上面的 `static`区别构建替换模式
+```css
+.ucf{
+    background:url(~static/images/logo.png)
+}
+```
 
 ## TODO
 
