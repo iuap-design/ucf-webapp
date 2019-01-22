@@ -1,11 +1,13 @@
 require('@babel/polyfill');
+/**
+ * UCF配置文件 更多说明文档请看 https://github.com/iuap-design/ucf-web/blob/master/packages/ucf-scripts/README.md
+ */
 
 module.exports = (env, argv) => {
     return {
         // 启动所有模块，默认这个配置，速度慢的时候使用另外的配置
         // bootList: true,
-
-        // 启动这两个模块，不启动调试，关闭构建
+        // 启动这两个模块，启动调试、构建
         bootList: [
             "demo-app-org",
             "demo-app-staff"
