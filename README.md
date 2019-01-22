@@ -130,6 +130,18 @@ loader | 内置加载器无法处理需要单独去设置处理 | [] | 同webpac
 devPlugins | 开发环境加载的插件 | [] | 同webpack4 plugin | 开发阶段使用的插件
 buildPlugins | 生产环境加载的插件 | [] | 同webpack4 plugin | 生产阶段使用的插件
 
+目前内置了alias有以下几个变量
+
+```js
+{
+    'ucf-apps': path.resolve('.', 'ucf-apps/'),
+    'ucf-common': path.resolve('.', 'ucf-common/src/'),
+    components: path.resolve('.', 'ucf-common/src/components/'),
+    static: path.resolve('.', 'ucf-common/src/static/'),
+    utils: path.resolve('.', 'ucf-common/src/utils/')
+}
+```
+
 ## TODO
 
 - [ ] [框架规范说明文档]()
