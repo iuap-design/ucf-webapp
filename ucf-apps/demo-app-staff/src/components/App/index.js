@@ -185,7 +185,7 @@ class App extends Component {
         //抽出原有查询条件
         let queryParam = deepClone(this.props.queryParam);
         //修改现有查询条件
-        queryParam['pageIndex'] = pageIndex;
+        queryParam['searchMap']['pageIndex'] = pageIndex - 1;
         //写入查询条件
         actions.app.updateState({ queryParam });
         actions.app.loadList();
@@ -201,8 +201,8 @@ class App extends Component {
         //抽出原有查询条件
         let queryParam = deepClone(this.props.queryParam);
         //修改现有查询条件
-        queryParam['pageSize'] = Number(pageSize);//当前显示几条
-        queryParam['pageIndex'] = 1;//当前页码
+        queryParam['searchMap']['pageSize'] = Number(pageSize);//当前显示几条
+        queryParam['searchMap']['pageIndex'] = 0;//当前页码
         //写入查询条件
         actions.app.updateState({ queryParam });
         actions.app.loadList();

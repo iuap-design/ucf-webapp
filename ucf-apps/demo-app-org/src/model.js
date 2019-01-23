@@ -15,8 +15,10 @@ export default {
         queryParam: {//总的查询对象
             searchMap: {
                 pageIndex: 0,//分页条-当前页
-                pageSize: 25,//分页条-当前显示N页
-                whereStatements: []
+                pageSize: 15,//分页条-当前显示N页
+                total: 0,//总记录数
+                totalPages: 0,//分页条显示几页
+                whereStatements: []//查询条件
                 // whereStatements: [{
                 //     condition: "LIKE",
                 //     value: "",
@@ -46,12 +48,15 @@ export default {
          */
         async loadList(params, getState) {
             let { queryParam } = getState().app;
-            let result = await api.getList(params || queryParam);
+            let result = await api.getList(queryParam);
             if (result.code == 200) {
-                // queryParam['searchMap']['pageIndex'] = 1;
-                // queryParam['searchMap']['pageSize'] = 15;
+                queryParam['searchMap']['pageIndex'] = result.data.number;//当前第几页,0表示第一页
+                queryParam['searchMap']['pageSize'] = result.data.size;//当前显示多少条
+                queryParam['searchMap']['total'] = result.data.totalElements;//总记录数
+                queryParam['searchMap']['totalPages'] = result.data.totalPages;//分页条显示几页
                 actions.app.updateState({
-                    list: result.data.content
+                    list: result.data.content,
+                    queryParam
                 });
             }
         },

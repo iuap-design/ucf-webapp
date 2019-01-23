@@ -5,10 +5,10 @@ import request from "ucf-request";
 import { actions } from 'mirrorx';
 //定义接口地址
 const URL = {
-    "POST_LIST": `${GROBAL_HTTP_PREFIX}/mock/326/loadList`,
-    "POST_DELETE": `${GROBAL_HTTP_PREFIX}/mock/326/deleteList`,
-    "POST_INSERT": `${GROBAL_HTTP_PREFIX}/mock/326/insert`,
-    "POST_UPDATE": `${GROBAL_HTTP_PREFIX}/mock/326/update`
+    "POST_LIST": `${GROBAL_HTTP_PREFIX}/iuap/staff/list`,
+    "POST_DELETE": `${GROBAL_HTTP_PREFIX}/iuap/staff/delete`,
+    "POST_INSERT": `${GROBAL_HTTP_PREFIX}/iuap/staff/add`,
+    "POST_UPDATE": `${GROBAL_HTTP_PREFIX}/iuap/staff/update`
 }
 
 /**
