@@ -3,6 +3,7 @@
  */
 import { actions } from "mirrorx";
 import * as api from "./service";
+import { Error } from 'utils';
 
 export default {
     // 确定 Store 中的数据模型作用域
@@ -58,6 +59,8 @@ export default {
                     list: result.data.content,
                     queryParam
                 });
+            } else {
+                Error(result.message);
             }
         },
         /**

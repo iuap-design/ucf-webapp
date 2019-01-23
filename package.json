@@ -32,6 +32,6 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "tinper-bee": "^1.6.9",
-    "ucf-request": "0.0.6"
+    "ucf-request": "^1.0.0"
   }
 }
