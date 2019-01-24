@@ -76,6 +76,9 @@ $ npm run build
   "scripts": {
     "start": "ucf-scripts start",
     "build": "ucf-scripts build"
+  },
+  "devDependencies": {
+    "ucf-scripts": "^1.0.2"
   }
 ```
 ![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-cli-start.gif)
