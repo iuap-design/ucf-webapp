@@ -84,6 +84,7 @@ $ npm run build
 ![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-cli-start.gif)
 
 ![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-cli-build.gif)
+
 2. 通过全局命令启动
 
 切换到项目根目录后执行开发调试、上线构建：
