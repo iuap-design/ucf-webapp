@@ -52,7 +52,7 @@ $ ucf init
 $ ucf init ucf-custom
 
 # 快速创建基础页面包含大致UCF微服务工程结构(暂未实现)
-$ ucf new
+$ ucf new app
 ```
 ![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-cli.gif)
 
