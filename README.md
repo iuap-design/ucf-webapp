@@ -2,37 +2,70 @@
 
 开发思路：[大型企业应用在前端微应用视角下的思考](https://github.com/iuap-design/blog/issues/306)
 
-本工程依赖`ucf-scripts`启动和构建的，详见：https://github.com/iuap-design/ucf-web/tree/master/packages/ucf-scripts
+---
 
-## 安装
+## 1. 介绍
 
+通过`ucf-cli`可以快速下载初始化UCF微服务前端工程所有资源到本机开发，并且可以快速创建指定的页面、带路由页面等，功能强大、操作简单易上手，详见：https://github.com/iuap-design/ucf-web/tree/master/packages/ucf-cli
 
-工具可以依赖UCF项目工程通过`scripts`运行，也可以单独安装全局切换到UCF工程根目录运行使用
+本工程依赖`ucf-scripts`启动和构建，详见：https://github.com/iuap-design/ucf-web/tree/master/packages/ucf-scripts
+
+工具名 | 版本
+--- | ---
+ucf-cli | [![npm version](https://img.shields.io/npm/v/ucf-cli.svg)](https://www.npmjs.com/package/ucf-cli)
+ucf-scripts | [![npm version](https://img.shields.io/npm/v/ucf-scripts.svg)](https://www.npmjs.com/package/ucf-scripts)
+
+## 2. 安装
+
+通过全局安装工具`ucf-cli`工具来拉取最新的微服务工程，不仅仅是代码初始化，还包含页面级别的模块创建，普通页面和带路由页面等
+
+首先保证我们的开发机环境包含最新的 [node.js 10.15+](https://nodejs.org/en/) ,[git 2.20+](https://git-scm.com/) ,[python 2.7](https://www.python.org/downloads/) , 并且可以 GCC编译
+
+[![NPM](https://nodei.co/npm/ucf-cli.png)](https://nodei.co/npm/ucf-cli/)
 
 
 
 ```bash
-# 推荐使用项目内依赖使用，也就是npm start方式
 
-$ npm install
+# 安装全局cli工具
+$ npm install ucf-cli -g
 
-# 全局安装工具
-$ npm install ucf-scripts -g
+# 查看版本
+$ ucf -v
+
+# 查看帮助
+$ ucf -h
 ```
 
-## 使用
+![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-cli-install.gif)
 
-1. 通过全局命令启动
+## 3. 创建
 
-切换到项目根目录后执行开发调试、上线构建：
+安装完成全局后使用下面命令：
+
 ```bash
-# 开发启动
-$ ucf-scripts start
 
-# 开发构建
-$ ucf-scripts build
+# 快速下载工程到本地，使用默认工程名 'ucf-webapp'
+$ ucf init
+
+# 指定名称 `ucf-custom`
+$ ucf init ucf-custom
+
+# 快速创建基础页面包含大致UCF微服务工程结构
+
+$ ucf new
+
+# 按照人及提示交互进行操作
+
 ```
-2. 通过`npm scripts`启动
+![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-cli.gif)
+
+## 4. 启动
+
+> 建议使用项目自带依赖`ucf-scripts`工具使用，使用全局会有安装权限问题
+
+
+1. 通过`npm scripts`启动
 
 ```bash
 
@@ -42,17 +75,63 @@ $ npm start
 # 开发构建
 $ npm run build
 ```
-内置已经集成ucf-scripts的启动
+内置配置脚本启动
+```js
+  "scripts": {
+    "start": "ucf-scripts start",
+    "build": "ucf-scripts build"
+  }
+```
+![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-cli-start.gif)
 
-## 访问具体模块
+![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-cli-build.gif)
+2. 通过全局命令启动
 
-启动器bootList的模块名字就是我们的访问路径，例如：`ucf-apps/demo-app-org`下的文件夹就是我们运行后的模块路径
+切换到项目根目录后执行开发调试、上线构建：
+```bash
+# 全局安装工具
+$ npm install ucf-scripts -g
+
+# 开发启动
+$ ucf-scripts start
+
+# 开发构建
+$ ucf-scripts build
+```
+
+![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-scripts-install.gif)
+
+![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-scripts-start.gif)
+
+![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-scripts-build.gif)
+
+## 5. 访问
+
+启动器`bootList`的模块名字就是我们的访问路径，例如：`ucf-apps/demo-app-org`下的文件夹就是我们运行后的模块路径
 
 ```bash
 http://127.0.0.1:3000/demo-app-org
 ```
+程序会根据你所设置的`bootList`来扫描启动的，`bootList:true`表示全部开启，`bootList:[]`指定模块启动
+```js
+// 启动所有模块，默认这个配置，速度慢的时候使用另外的配置
+bootList: true,
+// 启动这两个模块，启动调试、构建
+bootList: [
+    "demo-app-org",
+    "demo-app-staff"
+],
+```
+```bash
+# 微服务工程模块
+ucf-apps
+├── demo-app-org
+├── demo-app-staff
+├── temp-app-normal
+└── temp-app-router
+```
 
-## 启动方式对比优劣
+## 6. 启动方式对比优劣
 
 全局启动和项目内脚本启动区别：
 
@@ -62,7 +141,7 @@ http://127.0.0.1:3000/demo-app-org
 脚本启动 | 无需管理全局环境变量、不污染全局变量、随时根据项目内版本更新、可控每一次版本  | 多次项目使用需要反复安装、占用磁盘空间大
 
 
-## 项目配置文件说明
+## 7. 项目配置文件说明
 
 UCF微服务前端工程核心配置文件只有一个`ucf.config.js`下面对配置文件说明：
 
@@ -120,7 +199,7 @@ module.exports = () => {
 }
 ```
 
-## 功能配置节点说明
+## 8. 功能配置节点说明
 
 
 配置项 | 说明 | 默认值 | 可选值 | 备注
@@ -155,7 +234,7 @@ source_map | 构建资源生产环境的时候产出sourceMap | false | true,fal
 }
 ```
 
-## TODO
+## 9. TODO
 
 - [ ] [框架规范说明文档]()
 - [ ] [ucf 命令new的实现，ucf 高度封装的实现]()
