@@ -7,7 +7,7 @@ class Home extends Component {
     render() {
         return (
             <div className="home-wrap">
-                <Button colors="info" onClick={() => actions.app.loadData({ ucf: 'ucf' })}>Action</Button>
+                Hello,World
             </div>
         );
     }

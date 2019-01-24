@@ -10,7 +10,9 @@ module.exports = (env, argv) => {
         // 启动这两个模块，启动调试、构建
         bootList: [
             "demo-app-org",
-            "demo-app-staff"
+            "demo-app-staff",
+            // "temp-app-normal",
+            // "temp-app-router"
         ],
         // 代理的配置
         proxy: [
