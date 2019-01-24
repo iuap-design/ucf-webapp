@@ -57,7 +57,13 @@ $ ucf new app
 # 查看现有微服务工程名
 $ ucf list
 ```
+
 ![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-cli.gif)
+
+![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-cli-new.gif)
+
+![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-cli-list.gif)
+
 
 ## 4. 启动
 
