@@ -51,12 +51,8 @@ $ ucf init
 # 指定名称 `ucf-custom`
 $ ucf init ucf-custom
 
-# 快速创建基础页面包含大致UCF微服务工程结构
-
+# 快速创建基础页面包含大致UCF微服务工程结构(暂未实现)
 $ ucf new
-
-# 按照人及提示交互进行操作
-
 ```
 ![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-cli.gif)
 
