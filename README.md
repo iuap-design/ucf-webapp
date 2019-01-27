@@ -48,8 +48,8 @@ $ ucf -h
 # 快速下载工程到本地，并且不会创建文件夹直接在当前运行根目录进行平铺，适合初始化git仓库使用
 $ ucf init
 
-# 指定名称 `ucf-custom`，将会在ucf-custom里面创建资源
-$ ucf init ucf-custom
+# 指定名称 `ucf-project`，将会在ucf-project里面创建资源
+$ ucf init ucf-project
 
 # 快速创建基础页面包含大致UCF微服务工程结构(暂未实现)
 $ ucf new app
@@ -58,7 +58,9 @@ $ ucf new app
 $ ucf list
 ```
 
-![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-cli.gif)
+![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-cli-init.gif)
+
+![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-cli-init-project.gif)
 
 ![image](http://iuap-design-cdn.oss-cn-beijing.aliyuncs.com/static/uba/gui/img/ucf-cli-new.gif)
 
