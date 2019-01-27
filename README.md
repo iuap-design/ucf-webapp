@@ -51,7 +51,7 @@ $ ucf init
 # 指定名称 `ucf-project`，将会在ucf-project里面创建资源
 $ ucf init ucf-project
 
-# 快速创建基础页面包含大致UCF微服务工程结构(暂未实现)
+# 快速创建基础页面包含大致UCF微服务工程结构(使用人机交互的方式引导创建)
 $ ucf new app
 
 # 查看现有微服务工程名
