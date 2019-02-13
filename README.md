@@ -226,6 +226,18 @@ buildPlugins | 生产环境加载的插件 | [] | 同webpack4 plugin | 生产阶
 source_map | 构建资源生产环境的时候产出sourceMap | false | true,false | -
 css_modules | 开启CSS Modules | false | true,false,local,global | 具体参考https://www.npmjs.com/package/css-loader#modules
 
+## 9. 自动开启浏览器
+
+通过配置npm启动命令：
+
+```js
+  "scripts": {
+    "start": "ucf-scripts start --homepage=demo-app-org",
+    "build": "ucf-scripts build"
+  }
+```
+
+## 10. 其他说明
 
 目前内置了alias有以下几个变量
 
@@ -247,7 +259,7 @@ css_modules | 开启CSS Modules | false | true,false,local,global | 具体参考
 }
 ```
 
-## 9. TODO
+## 11. TODO
 
 - [ ] [框架规范说明文档]()
 - [ ] [ucf 命令new的实现，ucf 高度封装的实现]()
