@@ -224,6 +224,8 @@ loader | 内置加载器无法处理需要单独去设置处理 | [] | 同webpac
 devPlugins | 开发环境加载的插件 | [] | 同webpack4 plugin | 开发阶段使用的插件
 buildPlugins | 生产环境加载的插件 | [] | 同webpack4 plugin | 生产阶段使用的插件
 source_map | 构建资源生产环境的时候产出sourceMap | false | true,false | -
+css_modules | 开启CSS Modules | false | true,false,local,global | 具体参考https://www.npmjs.com/package/css-loader#modules
+
 
 目前内置了alias有以下几个变量
 
