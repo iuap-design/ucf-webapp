@@ -28,6 +28,10 @@ module.exports = (env, argv) => {
         ],
         // 构建资源的时候产出sourceMap，调试服务不会生效
         source_map: true,
+        // CSS loader 控制选项
+        css: {
+            modules: false
+        },
         // 全局环境变量
         global_env: {
             GROBAL_HTTP_CTX: JSON.stringify("/iuap_demo"),

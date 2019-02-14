@@ -18,14 +18,14 @@
   },
   "homepage": "https://github.com/iuap-design/ucf-webapp#readme",
   "devDependencies": {
-    "ucf-scripts": "^1.0.4"
+    "ucf-scripts": "^1.0.5"
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
     "@babel/runtime": "^7.3.1",
     "bee-complex-grid": "^1.0.11",
     "bee-form": "^2.0.7",
-    "bee-table": "^1.6.33",
+    "bee-table": "^1.6.38",
     "classnames": "^2.2.6",
     "mirrorx": "^0.2.12",
     "prop-types": "^15.7.1",
