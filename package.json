@@ -29,8 +29,8 @@
     "classnames": "^2.2.6",
     "mirrorx": "^0.2.12",
     "prop-types": "^15.7.1",
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
     "tinper-bee": "^1.6.9",
     "ucf-request": "^1.0.0"
   }
