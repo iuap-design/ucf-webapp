@@ -4,7 +4,7 @@
   "description": "开发思路：[大型企业应用在前端微应用视角下的思考](https://github.com/iuap-design/blog/issues/306)",
   "main": "index.js",
   "scripts": {
-    "start": "ucf-scripts start --homepage=demo-app-org",
+    "start": "ucf-scripts start --homepage=index.html",
     "build": "ucf-scripts build"
   },
   "repository": {
@@ -32,6 +32,7 @@
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "tinper-bee": "^1.6.9",
+    "ucf-fe": "^0.1.0",
     "ucf-request": "^1.0.0"
   }
 }
