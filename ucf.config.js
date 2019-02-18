@@ -24,6 +24,31 @@ module.exports = (env, argv) => {
                     '/iuap'
                 ],
                 url: 'http://iuap-meger-demo.test.app.yyuap.com'
+            }, {
+                enable: true,
+                headers: {
+                    "Referer": "https://mock.yonyoucloud.com/mock/326"
+                },
+                //要代理访问的对方路由
+                router: ["/wbalone/appmenumgr/newSidebarList"],
+                url: 'https://mock.yonyoucloud.com/mock/326'
+            },
+            {
+                enable: true,
+                headers: {
+                    "Referer": "http://172.20.52.215:8888"
+                },
+                //要代理访问的对方路由
+                router: [
+                    '/iuap_walsin_demo',
+                    '/iuap-saas-message-center/',
+                    '/iuap-saas-filesystem-service/',
+                    '/wbalone',
+                    '/print_service/',
+                    '/eiap-plus',
+                    '/iuap-print/'
+                ],
+                url: 'http://172.20.52.215:8888'
             }
         ],
         // 构建资源的时候产出sourceMap，调试服务不会生效
