@@ -52,7 +52,7 @@ module.exports = (env, argv) => {
             }
         ],
         // 构建资源的时候产出sourceMap，调试服务不会生效
-        source_map: true,
+        open_source_map: false,
         // CSS loader 控制选项
         css: {
             modules: false
