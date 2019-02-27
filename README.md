@@ -162,6 +162,7 @@ UCF微服务前端工程核心配置文件只有一个`ucf.config.js`下面对�
 ```js
 module.exports = () => {
     return {
+        context: "", // 上下文配置
         // 启动所有模块，默认这个配置，速度慢的时候使用另外的配置
         // bootList: true,
 
