@@ -190,8 +190,12 @@ module.exports = () => {
                 url: 'http://iuap-meger-demo.test.app.yyuap.com'
             }
         ],
-        // 构建资源的时候产出sourceMap，调试服务不会生效
-        source_map: true,
+        // 静态托管服务
+        static: 'ucf-common/src/static',
+        // 是否展开静态引用资源
+        res_extra: true,
+        // 构建资源是否产出SourceMap
+        open_source_map: true,
         // 全局环境变量
         global_env: {
             GROBAL_HTTP_CTX: JSON.stringify("/iuap_demo"),
@@ -227,6 +231,9 @@ devPlugins | 开发环境加载的插件 | [] | 同webpack4 plugin | 开发阶�
 buildPlugins | 生产环境加载的插件 | [] | 同webpack4 plugin | 生产阶段使用的插件
 source_map | 构建资源生产环境的时候产出sourceMap | false | true,false | -
 css | css loader的options | undefined | - | 具体参考https://www.npmjs.com/package/css-loader
+res_extra | 是否展开静态引用资源，用于打包处理字体、图片等资源产出，或者不使用展开资源会打包到css方便管理 | true | true,false | -
+static | 静态托管服务，不按需打包 | undefined | - | 脚手架内的任意文件夹即可，如：static : 'ucf-common/src/static'
+
 
 ## 9. 自动开启浏览器
 

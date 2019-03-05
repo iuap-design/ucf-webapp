@@ -52,6 +52,10 @@ module.exports = (env, argv) => {
                 url: 'http://172.20.52.215:8888'
             }
         ],
+        // 静态托管服务
+        static: 'ucf-common/src/static',
+        // 展开打包后的资源文件，包含图片、字体图标相关
+        res_extra: false,
         // 构建资源的时候产出sourceMap，调试服务不会生效
         open_source_map: false,
         // CSS loader 控制选项
