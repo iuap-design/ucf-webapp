@@ -1,6 +1,6 @@
 {
   "name": "ucf-webapp",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "开发思路：[大型企业应用在前端微应用视角下的思考](https://github.com/iuap-design/blog/issues/306)",
   "main": "index.js",
   "scripts": {
@@ -18,20 +18,20 @@
   },
   "homepage": "https://github.com/iuap-design/ucf-webapp#readme",
   "devDependencies": {
-    "ucf-scripts": "^1.1.0"
+    "ucf-scripts": "^1.1.2"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.2.5",
-    "@babel/runtime": "^7.3.4",
-    "bee-complex-grid": "^1.0.19",
-    "bee-form": "^2.0.7",
-    "bee-table": "^1.6.44",
+    "@babel/polyfill": "^7.4.0",
+    "@babel/runtime": "^7.4.0",
+    "bee-complex-grid": "^2.0.2",
+    "bee-locale": "0.0.12",
     "classnames": "^2.2.6",
-    "mirrorx": "^0.2.12",
+    "mirrorx": "^0.2.13",
     "prop-types": "^15.7.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
-    "tinper-bee": "^1.6.11",
+    "react-intl": "^2.8.0",
+    "tinper-bee": "^2.0.4",
     "ucf-fe": "^0.1.0",
     "ucf-request": "^1.0.0"
   }

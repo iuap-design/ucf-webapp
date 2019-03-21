@@ -5,7 +5,7 @@ import request from "ucf-request";
 import { actions } from 'mirrorx';
 //定义接口地址
 const URL = {
-    "POST_LIST": `${GROBAL_HTTP_PREFIX}/iuap/org/list`,
+    "POST_LIST": `${GROBAL_HTTP_PREFIX}/mock/843/iuap/org/list`,
     "POST_DELETE": `${GROBAL_HTTP_PREFIX}/iuap/org/delete`,
     "POST_INSERT": `${GROBAL_HTTP_PREFIX}/iuap/org/add`,
     "POST_UPDATE": `${GROBAL_HTTP_PREFIX}/iuap/org/update`

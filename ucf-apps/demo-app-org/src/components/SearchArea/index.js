@@ -7,9 +7,8 @@ import React, { Component } from 'react';
 //状态管理
 import { actions } from "mirrorx";
 //Tinper-bee组件库
-import { Col, Row, FormControl, Label } from "tinper-bee";
+import { Col, Row, FormControl, Label,Form } from "tinper-bee";
 //表单
-import Form from 'bee-form';
 
 //加载工具类
 import { deepClone } from "utils";

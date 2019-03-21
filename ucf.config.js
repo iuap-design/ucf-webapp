@@ -10,21 +10,20 @@ module.exports = (env, argv) => {
         // bootList: true,
         // 启动这两个模块，启动调试、构建
         bootList: [
-            "demo-app-org",
-            "demo-app-staff"
+            "demo-app-org"
         ],
         // 代理的配置
         proxy: [
             {
                 enable: true,
                 headers: {
-                    "Referer": "http://iuap-meger-demo.test.app.yyuap.com"
+                    "Referer": "https://mock.yonyoucloud.com"
                 },
                 //要代理访问的对方路由
                 router: [
-                    '/iuap'
+                    '/mock'
                 ],
-                url: 'http://iuap-meger-demo.test.app.yyuap.com'
+                url: 'https://mock.yonyoucloud.com'
             }, {
                 enable: true,
                 headers: {
