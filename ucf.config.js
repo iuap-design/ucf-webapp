@@ -1,4 +1,3 @@
-require('@babel/polyfill');
 /**
  * UCF配置文件 更多说明文档请看 https://github.com/iuap-design/ucf-web/blob/master/packages/ucf-scripts/README.md
  */

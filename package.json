@@ -1,6 +1,6 @@
 {
   "name": "ucf-webapp",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "开发思路：[大型企业应用在前端微应用视角下的思考](https://github.com/iuap-design/blog/issues/306)",
   "main": "index.js",
   "scripts": {

@@ -12,4 +12,3 @@ Grid | 对bee-complex-grid组件进行减负封装
 Header | 布局类标题组件
 Pop | 基于Modal封装基本弹出层组件，是Alert的基类组件
 SearchPanel | 一个简单的上下收起组件并带按钮组
-Intl | 多语封装组件
