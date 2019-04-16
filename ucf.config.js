@@ -11,6 +11,17 @@ module.exports = (env, argv) => {
         bootList: [
             "demo-app-org"
         ],
+        // babel presets
+        babel_presets: [
+            //require.resolve('@babel/preset-react')
+        ],
+        // babel plugins
+        babel_plugins: [
+            // [require.resolve("babel-plugin-import-bee"),
+            // {
+            //     "libraryName": "antd-mobile"
+            // }]
+        ],
         // 代理的配置
         proxy: [
             {
