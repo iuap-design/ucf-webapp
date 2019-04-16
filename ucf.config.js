@@ -19,7 +19,7 @@ module.exports = (env, argv) => {
         babel_plugins: [
             // [require.resolve("babel-plugin-import-bee"),
             // {
-            //     "libraryName": "antd-mobile"
+            //     "libraryName": "tinper-bee"
             // }]
         ],
         // 代理的配置
