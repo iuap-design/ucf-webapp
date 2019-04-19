@@ -1,5 +1,6 @@
 /**
  * UCF配置文件 更多说明文档请看 https://github.com/iuap-design/ucf-web/blob/master/packages/ucf-scripts/README.md
+ * 语雀全新详细文档请访问 https://www.yuque.com/ucf-web/book/zfy8x1
  */
 
 module.exports = (env, argv) => {
