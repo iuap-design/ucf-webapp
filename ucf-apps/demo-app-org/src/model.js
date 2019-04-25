@@ -69,7 +69,8 @@ export default {
          * @param {*} getState
          */
         async postDelete(params, getState) {
-            let { selectedList: deleteList } = getState().app;
+            let  deleteList  = params;
+            console.log(deleteList);
             let result = await api.postDelete([deleteList[0]['id']]);
             if (result.code == 200) {
                 return true;

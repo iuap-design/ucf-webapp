@@ -108,7 +108,7 @@ class App extends Component {
      *
      */
     handlerDelete = () => {
-        let { selectedList: deleteList } = this.props;
+        let { selectedList: deleteList } = this;
         if (deleteList.length > 0) {
             if (deleteList.length > 1) {//目前删除仅支持单条
                 Warning('请选择单条进行删除操作');
@@ -127,7 +127,8 @@ class App extends Component {
      * @param {array} selected 选择后返回的选中项，包含_checked字段
      */
     getSelectedDataFunc = (selectedList) => {
-        actions.app.updateState({ selectedList });
+        // actions.app.updateState({ selectedList });
+        this.selectedList = selectedList;
     }
 
     /**
@@ -144,7 +145,7 @@ class App extends Component {
      */
     onClickPopDelete = async () => {
         this.setState({ showPop: false });
-        let result = await actions.app.postDelete();
+        let result = await actions.app.postDelete(this.selectedList);
         if (result) {
             actions.app.loadList();
             Info('删除数据操作成功，已刷新');
