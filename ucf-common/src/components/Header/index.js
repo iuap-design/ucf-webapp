@@ -20,7 +20,7 @@ const defaultProps = {
 
 const headerStyle = classnames({
     'title': true,
-    'title-develop': false
+    'title-develop': true
 });
 
 class Header extends Component {
@@ -28,20 +28,19 @@ class Header extends Component {
         super(props);
         this.state = {};
     }
-    componentDidMount() { }
+    componentDidMount() {}
 
     render() {
         const { backFn, title, back, children } = this.props;
         return (
-            <Row className={headerStyle}>
+            <Row className={"title title-develop"}>
                 <Col xs={12}>
-                    {
-                        back ? (
-                            <span onClick={backFn} className="back-icon">
-                                <i className={classnames({ 'uf uf-arrow-left pull-left': true, 'hide': !back })} />
-                                返回
-                        </span>) : ''
-                    }
+                    {back ? (
+                        <span onClick={backFn} className="back-icon">
+                            <i className={classnames({ 'uf uf-arrow-left pull-left': true, 'hide': !back })} />
+                            {/*返回*/}
+                        </span>
+                    ) : null}
                     <span className="main-title">
                         {title}
                     </span>

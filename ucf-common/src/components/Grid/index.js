@@ -1,65 +1,82 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
+import { FormattedMessage, injectIntl } from 'react-intl';
 import BeeGrid from "bee-complex-grid";
 import Icon from "bee-icon";
-import 'bee-complex-grid/build/Grid.css';
+import './index.less'
 
-const defaultProps = {
-  //   hideBodyScroll: true,
-  headerScroll: true,
-  data: []
-};
+const NoData = () => {
+    return (
+      <p className="no-data">
+          <Icon type="uf-list-s-o"/>
+          <p><FormattedMessage id="js.Ref.Ref224.0014" defaultMessage="暂无数据"/></p>
+      </p>
+    )
+}
+
 const defualtPaginationParam = {
-  dataNumSelect: ["5", "10", "15", "20", "25", "50"],
-  verticalPosition: "top",
-  dataNum: 2,
+    dataNumSelect: ["5", "10", "15", "20", "25", "50", "All"],
+    horizontalPosition: 'center',
+    verticalPosition: "bottom",
+    dataNum: 4,
+    btnType: {
+        shape: 'border'
+    },
+    noBorder: true,
+    confirmBtn: () => null
+};
+const defaultProps = {
+    //   hideBodyScroll: true,
+    headerScroll: false,
+    bordered: false,
+    data: []
 };
 
 class Grid extends Component {
-  constructor(props) {
-    super(props);
-  }
-  /**
-   *获取保存的column和table上的属性
-   *
-   */
-  getColumnsAndTablePros = () => {
-    return this.grid.getColumnsAndTablePros();
-  };
-  /**
-   *
-   * 重置grid的columns
-   */
-  resetColumns = newColumns => {
-    this.grid.resetColumns(newColumns);
-  };
+    constructor(props) {
+        super(props);
+    }
 
-  exportExcel = () => {
-    this.grid.exportExcel();
-  };
-  render() {
-    const props = this.props;
-    const paginationObj = { ...defualtPaginationParam, ...props.paginationObj };
-    paginationObj.disabled = paginationObj.disabled
-      ? paginationObj.disabled
-      : props.data.length == 0
-        ? true
-        : false;
-    let _exportData = props.exportData ? props.exportData : props.data;
-    return (
-      <BeeGrid
-        {...props}
-        exportData={_exportData}
-        paginationObj={paginationObj}
-        ref={el => (this.grid = el)}
-        emptyText={() => <Icon style={{ fontSize: "60px" }} type="uf-nodata" />}
-        columnFilterAble={true}//是否显示右侧隐藏行
-        showHeaderMenu={true}//是否显示菜单
-        dragborder={true}//是否调整列宽
-        draggable={true}//是否拖拽
-        syncHover={true}//是否同步状态
-      />
-    );
-  }
+    /**
+     *获取保存的column和table上的属性
+     *
+     */
+    getColumnsAndTablePros = () => {
+        return this.grid.getColumnsAndTablePros();
+    };
+    /**
+     *
+     * 重置grid的columns
+     */
+    resetColumns = newColumns => {
+        this.grid.resetColumns(newColumns);
+    };
+
+    exportExcel = () => {
+        this.grid.exportExcel();
+    };
+
+    render() {
+        const { paginationObj, data, exportData,  ...otherProps } = this.props;
+        const _paginationObj = {...defualtPaginationParam, ...paginationObj};
+        _paginationObj.disabled = paginationObj.disabled !== undefined
+            ? paginationObj.disabled
+            : data.length === 0;
+        let _exportData = exportData || data;
+        return (
+            <div className='demo-grid-wrapper'>
+                <BeeGrid
+                    className="ucf-example-grid"
+                    data={data}
+                    {...otherProps}
+                    exportData={_exportData}
+                    paginationObj={_paginationObj}
+                    ref={el => this.grid = el}
+                    emptyText={NoData}
+                />
+            </div>
+        );
+    }
 }
+
 Grid.defaultProps = defaultProps;
 export default Grid;

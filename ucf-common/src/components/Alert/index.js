@@ -1,3 +1,4 @@
+import { FormattedMessage, injectIntl } from 'react-intl';
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import PopDialog from 'components/Pop';
@@ -5,15 +6,15 @@ import './style.less';
 
 
 const propTypes = {
-    title: PropTypes.string,
+    title: PropTypes.node,
     confirmFn: PropTypes.func,
     cancelFn: PropTypes.func,
-    context: PropTypes.string,
+    context: PropTypes.node,
     show: PropTypes.bool
 };
 
 const defaultProps = {
-    title: "温馨提示",
+    title: <FormattedMessage id="js.com.Ale.0001" defaultMessage="温馨提示" />,
     confirmFn: PropTypes.func,
     context: "确认要删除吗 ?",
     show: false
@@ -24,7 +25,7 @@ class AlertDialog extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            show: this.props.show ? true : false
+            show: !!props.show
         }
     }
 
@@ -55,36 +56,44 @@ class AlertDialog extends Component {
         })
     }
 
+    dialogBtnConfig = [
+        {
+            label: <FormattedMessage id="js.com.Ale.0003" defaultMessage="取消" />,
+            fun: this.cancelFn,
+            shape: 'border'
+        },
+        {
+            label: <FormattedMessage id="js.com.Ale.0004" defaultMessage="确定" />,
+            fun: this.confirmFn,
+            colors: 'primary'
+        },
+    ]
+
     render() {
         let { context, children } = this.props;
         //按钮组
-        let btns = [
-            {
-                label: '确定',
-                fun: this.confirmFn,
-                icon: "uf-correct"
-            },
-            {
-                label: '取消',
-                fun: this.cancelFn,
-                icon: "uf-back"
-            }
-        ];
-        return (<span>
-            <span className="alert-modal-title" onClick={() => { this.setState({ show: true }) }}>
-                {children}
+        return (
+            <span>
+                <span
+                    className="alert-modal-title"
+                    onClick={() => { this.setState({ show: true }) }}
+                >
+                    {children}
+                </span>
+                <PopDialog
+                    className="alert_dialog_modal u-modal-confirm" // 设置弹框样式
+                    show={this.state.show} //默认是否显示
+                    close={this.cancelFn}
+                    title={<span className="modal_conf_title">{this.props.title}</span>}
+                    size="sm"
+                    titleIcon="uf-qm-c"
+                    backdrop={false}
+                    closeButton={false}
+                    btns={this.dialogBtnConfig}>
+                    <span className="alert-modal-cont">{context}</span>
+                </PopDialog>
             </span>
-            <PopDialog
-                className="alert_dialog_modal" // 设置弹框样式
-                show={this.state.show} //默认是否显示
-                close={this.cancelFn}
-                title={this.props.title}
-                size="sm"
-                titleIcon="uf-exc-t-o"
-                btns={btns}>
-                <span>{context}</span>
-            </PopDialog>
-        </span>)
+        )
     }
 }
 

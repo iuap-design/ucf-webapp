@@ -1,0 +1,82 @@
+@import  '~bee-complex-grid/build/Grid.css';
+
+.demo-grid-wrapper {
+    .u-grid.ucf-example-grid {
+        background: #fff;
+        overflow: hidden;
+        table {
+            table-layout: fixed;
+        }
+
+        //修改table的header背景色颜色和body中隔行差
+
+
+        .table-menu {
+            height: 16px;
+            line-height: 1;
+        }
+
+        th.column-number-right,
+        td.column-number-right {
+            text-align: right !important;
+        }
+    }
+    .u-input-group {
+        border-spacing: 0;
+    }
+    .u-table {
+
+        tr {
+            transition: none;
+            &:nth-child(2n) {
+                background: #FAFAFA;
+            }
+            &:nth-child(2n + 1) {
+                background: #ffffff;
+            }
+            &:hover, &.u-table-row-hover {
+                background: #EBECF0;
+
+            }
+            &.u-table-row {
+                &.selected, &.ref-multiple-table-row-selected {
+                    background: #FFF7E7;
+                }
+            }
+
+        }
+        th, td {
+            padding: 10px 8px;
+            height: 40px;
+        }
+        th{
+            overflow: visible;
+            background-clip:padding-box;
+            word-break: keep-all;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            text-align: left;
+        }
+        tr.filterable th {
+            padding: 0 2px;
+            height: 39px;
+        }
+
+    }
+    .no-data {
+        &>i.uf {
+            font-size: 40px;
+        }
+        &>p {
+            margin: 0;
+        }
+    }
+}
+.u-table-filter-column-pop-cont-item {
+    &>span {
+        margin: 0 !important;
+    }
+}
+
+
+
