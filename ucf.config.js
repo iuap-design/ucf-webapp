@@ -13,7 +13,6 @@ module.exports = (env, argv) => {
         // bootList: true,
         // 启动这两个模块，启动调试、构建
         bootList: [
-            "demo-app-org",
             "singletable-query"
         ],
         // babel presets

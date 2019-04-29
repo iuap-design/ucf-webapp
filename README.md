@@ -119,10 +119,10 @@ $ ucf-scripts build
 
 ## 5. 访问
 
-启动器`bootList`的模块名字就是我们的访问路径，例如：`ucf-apps/demo-app-org`下的文件夹就是我们运行后的模块路径
+启动器`bootList`的模块名字就是我们的访问路径，例如：`ucf-apps/singletable-query`下的文件夹就是我们运行后的模块路径
 
 ```bash
-http://127.0.0.1:3000/demo-app-org
+http://127.0.0.1:3000/singletable-query
 ```
 程序会根据你所设置的`bootList`来扫描启动的，`bootList:true`表示全部开启，`bootList:[]`指定模块启动
 ```js
@@ -130,14 +130,13 @@ http://127.0.0.1:3000/demo-app-org
 bootList: true,
 // 启动这两个模块，启动调试、构建
 bootList: [
-    "demo-app-org",
-    "demo-app-staff"
+    "singletable-query"
 ],
 ```
 ```bash
 # 微服务工程模块
 ucf-apps
-├── demo-app-org
+├── singletable-query
 ├── demo-app-staff
 ├── temp-app-normal
 └── temp-app-router
@@ -168,8 +167,7 @@ module.exports = () => {
 
         // 启动这两个模块，不启动调试，关闭构建
         bootList: [
-            "demo-app-org",
-            //"demo-app-staff"
+            "singletable-query",
         ],
         // 代理的配置
         proxy: [
@@ -241,7 +239,7 @@ static | 静态托管服务，不按需打包 | undefined | - | 脚手架内的�
 
 ```js
   "scripts": {
-    "start": "ucf-scripts start --homepage=demo-app-org",
+    "start": "ucf-scripts start --homepage=singletable-query",
     "build": "ucf-scripts build"
   }
 ```
