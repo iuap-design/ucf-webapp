@@ -6,6 +6,7 @@ require('@babel/polyfill');
 const path = require('path');
 
 module.exports = (env, argv) => {
+    const isBuild = argv[0] === 'build';
     return {
         context: "",// 上下文对象
         // 启动所有模块，默认这个配置，速度慢的时候使用另外的配置
@@ -75,9 +76,9 @@ module.exports = (env, argv) => {
         css: {
             modules: false
         },
-        // 全局环境变量
+        // 全局环境变量,GROBAL_HTTP_CTX build时需要设置项目名称
         global_env: {
-            GROBAL_HTTP_CTX: JSON.stringify("/iuap_demo"),
+            GROBAL_HTTP_CTX: isBuild?"/ucf-webapp":JSON.stringify("/mock/936"),
         },
         // 别名配置
         alias: {
@@ -96,6 +97,8 @@ module.exports = (env, argv) => {
         // 调试服务需要运行的插件
         devPlugins: [],
         // 构建服务需要运行的插件
-        buildPlugins: []
+        buildPlugins: [],
+        open_source_map: isBuild,
+        res_extra: isBuild
     }
 }
