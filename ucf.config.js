@@ -77,7 +77,7 @@ module.exports = (env, argv) => {
         },
         // 全局环境变量,GROBAL_HTTP_CTX build时需要设置项目名称
         global_env: {
-            GROBAL_HTTP_CTX: isBuild?"/ucf-webapp":JSON.stringify("/mock/936"),
+            GROBAL_HTTP_CTX: isBuild ? JSON.stringify("/ucf-webapp") : JSON.stringify("/mock/936"),
         },
         // 别名配置
         alias: {
@@ -96,8 +96,6 @@ module.exports = (env, argv) => {
         // 调试服务需要运行的插件
         devPlugins: [],
         // 构建服务需要运行的插件
-        buildPlugins: [],
-        open_source_map: isBuild,
-        res_extra: isBuild
+        buildPlugins: []
     }
 }
