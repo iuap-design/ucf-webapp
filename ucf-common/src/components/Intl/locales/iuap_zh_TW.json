@@ -841,5 +841,9 @@
   "js.Ref.Ref224.0014": "暫無數據",
   "js.Ref.Car.0002": "查看源碼",
   "js.Ref.Cus.0001": "請輸入實體编码",
-  "js.Ref.Cus.0002": "請輸入欄位编码"
+  "js.Ref.Cus.0002": "請輸入欄位编码",
+  "js.table.field.0001": "用戶名",
+	"js.table.field.0002": "性別",
+	"js.table.field.0003": "年齡",
+	"js.table.btn.0001": "確認"
 }

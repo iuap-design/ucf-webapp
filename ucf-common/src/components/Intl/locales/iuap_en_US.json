@@ -841,5 +841,9 @@
   "js.Ref.Ref224.0014": "No data",
   "js.Ref.Car.0002": "Show code",
   "js.Ref.Cus.0001": "Please enter entity code",
-  "js.Ref.Cus.0002": "Please enter field code"
+  "js.Ref.Cus.0002": "Please enter field code",
+  "js.table.field.0001": "Username",
+	"js.table.field.0002": "Sex",
+	"js.table.field.0003": "Age",
+	"js.table.btn.0001": "Confirm"
 }

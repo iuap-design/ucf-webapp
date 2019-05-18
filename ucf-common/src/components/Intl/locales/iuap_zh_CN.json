@@ -841,5 +841,9 @@
   "js.Ref.Ref224.0014": "暂无数据",
   "js.Ref.Car.0002": "查看源码",
   "js.Ref.Cus.0001": "请输入实体编码",
-  "js.Ref.Cus.0002": "请输入字段编码"
+  "js.Ref.Cus.0002": "请输入字段编码",
+  "js.table.field.0001": "用户名",
+	"js.table.field.0002": "性别",
+	"js.table.field.0003": "年龄",
+	"js.table.btn.0001": "确认"
 }
