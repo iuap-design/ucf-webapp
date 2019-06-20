@@ -16,17 +16,6 @@ module.exports = (env, argv) => {
         bootList: [
             "singletable-query"
         ],
-        // babel presets
-        babel_presets: [
-            //require.resolve('@babel/preset-react')
-        ],
-        // babel plugins
-        babel_plugins: [
-            // [require.resolve("babel-plugin-import-bee"),
-            // {
-            //     "libraryName": "tinper-bee"
-            // }]
-        ],
         // 代理的配置
         proxy: [
             {
@@ -69,7 +58,7 @@ module.exports = (env, argv) => {
         // 静态托管服务
         static: 'ucf-common/src/static',
         // 展开打包后的资源文件，包含图片、字体图标相关
-        res_extra: false,
+        res_extra: true,
         // 构建资源的时候产出sourceMap，调试服务不会生效
         open_source_map: false,
         // CSS loader 控制选项
