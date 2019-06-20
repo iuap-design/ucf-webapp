@@ -3,7 +3,6 @@
  */
 
 //React导入
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import React, { Component } from 'react';
 //类型校验
 import PropTypes from 'prop-types';
@@ -35,7 +34,7 @@ const propTypes = {
 const defaultProps = {
     field: '',
     index: '',
-    message: <FormattedMessage id="js.com.Row2.0001" defaultMessage="请选择此字段" />,
+    message: '请选择此字段',
     data: [],
     required: false,
     isFlag: false,

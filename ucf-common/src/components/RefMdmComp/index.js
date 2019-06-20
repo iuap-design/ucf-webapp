@@ -4,11 +4,11 @@
  * @description 表格参照带有input
  *
  */
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import React, { Component } from 'react';
 // import RefWithInput from 'ref-core/lib/refs/refcorewithinput';
 // import RefTreeBaseUI from 'ref-tree';
 import {RefTreeWithInput} from 'ref-tree';
+import 'ref-tree/lib/index.css'
 import request from 'utils/request.js'
 // import RefMultipleTableBaseUI from 'ref-multiple-table';
 import {RefMultipleTableWithInput} from 'ref-multiple-table';
@@ -16,8 +16,8 @@ import 'ref-multiple-table/lib/index.css'
 // import RefTreeTableBaseUI from 'ref-tree-table';
 import {RefTreeTableWithInput} from 'ref-tree-table';
 import Message from 'bee-message';
-
-import 'ref-tree-table/dist/index.css';
+import './index.less'
+import 'ref-tree-table/lib/index.css';
 class MdmRefComp extends Component {
     constructor(props) {
         super(props);
@@ -36,12 +36,14 @@ class MdmRefComp extends Component {
             treeData: [],
             showLoading: true,
             treeNodePk: '',
-            tableKey: ''
+            tableKey: '',
+            value: ''
         };
         this.pageCount = 0;
         this.totalElements = 0;
         this.pageSize = 10;
         this.currPageIndex = 1;
+        this.getDataTimeout = null;
         this.dataNumSelect = this.dataNumSelect.bind(this);
         this.handlePagination = this.handlePagination.bind(this);
         this.loadTableData = this.loadTableData.bind(this);
@@ -51,6 +53,9 @@ class MdmRefComp extends Component {
     }
 
     shouldComponentUpdate(nextProps){
+        if(nextProps.className != this.props.className){
+            return true;
+        }
         if(nextProps.pk_entityitem && nextProps.pk_gd){
             if(nextProps.pk_entityitem === this.props.pk_entityitem && nextProps.pk_gd === this.props.pk_gd){
                 return false;
@@ -70,7 +75,7 @@ class MdmRefComp extends Component {
 
     initComponent = (nextProps) => {
         let propsObj = nextProps || this.props;
-        let requestFun = ( resp ) =>{
+        let requestFun = async ( resp ) =>{
             let data = resp.data;
             if(data.flag){
                 let fullclassname = data.fullclassname || '';
@@ -78,7 +83,7 @@ class MdmRefComp extends Component {
                 let pk_gd = data.params.pk_gd || '';
                 let refPkGd = data.params.refPkGd || '';
                 let type = data.type;
-                let title = data.title || <FormattedMessage id="js.com.Ref2.0001" defaultMessage="参照" />;
+                let title = data.title || '参照';
                 let queryParams = {
                     fullclassname: fullclassname,
                     type: type,
@@ -87,6 +92,19 @@ class MdmRefComp extends Component {
                     refPkGd: refPkGd,
                     '_': new Date().getTime()
                 }
+                
+                let value = this.props.value;
+                if(value){
+                    try{
+                        let valueObj = JSON.parse(value);
+                        if(valueObj.refpk && !valueObj.refname){
+                            valueObj.refname = await this.getName(valueObj.refpk,queryParams,type);
+                            value = JSON.stringify(valueObj);
+                        }
+                    }catch(e){
+                    }
+                }
+                
                 this.setState({
                     title: title,
                     fullclassname: fullclassname,
@@ -94,7 +112,8 @@ class MdmRefComp extends Component {
                     type: type,
                     pk_entityitem: pk_entityitem,
                     refPkGd: refPkGd,
-                    queryParams: queryParams
+                    queryParams: queryParams,
+                    value: value
                 })
                 this.forceUpdate();
             }else{
@@ -131,21 +150,29 @@ class MdmRefComp extends Component {
     }
 
     getData = (key, treeNodePk) => {
+        if(this.getDataTimeout)
+            clearTimeout(this.getDataTimeout)
+        this.getDataTimeout = setTimeout(()=>{
+            this.getDataFun(key, treeNodePk)
+        },300)
+    }
+
+    getDataFun = (key, treeNodePk) => {
         let params = Object.assign({},this.state.queryParams);
         let type = this.state.type || 'grid';
         if(key)
             params.key = key;
         if(treeNodePk)
             params.treeNodePk = treeNodePk;
-        let url = '/iuapmdm/reference/mdmref/'
+            let url = '/iuapmdm/reference/mdmref/'
         if(type === 'grid'){
-            url += '/grid';
+            url += 'grid';
             params.pageSize = this.pageSize
             params.pageIndex = this.currPageIndex
         }else if(type === 'tree'){
-            url += '/tree';
+            url += 'tree';
         }else if(type === 'treegrid'){
-            url += '/treegrid';
+            url += 'treegrid';
             params.pageSize = this.pageSize
             params.pageIndex = this.currPageIndex
         }
@@ -279,6 +306,7 @@ class MdmRefComp extends Component {
             // </RefWithInput>
         }else if(type === 'tree'){
             return <RefTreeWithInput 
+                theme=""
                 {...props}
                 {...refProps}
                 >   
@@ -292,6 +320,7 @@ class MdmRefComp extends Component {
 
         }else if(type === 'treegrid'){
             return <RefTreeTableWithInput 
+                theme=""
                 {...props}
                 {...refProps}
                 >   
@@ -308,24 +337,68 @@ class MdmRefComp extends Component {
     }
     handlePagination(index) {
         this.currPageIndex = index;
-        this.getData(this.state.tableKey)
+        this.getDataFun(this.state.tableKey)
     }
     dataNumSelect(index, pageSize){
-        this.currPageIndex = index;
+        this.currPageIndex = 1;
         this.pageSize = pageSize;
-        this.getData(this.state.tableKey)
+        this.getDataFun(this.state.tableKey)
     }
     loadTableData(params){
         this.currPageIndex = params['refClientPageInfo.currPageIndex'] + 1;
         this.pageSize = params['refClientPageInfo.pageSize'];
-        this.getData(this.state.tableKey, this.state.treeNodePk)
+        this.getDataFun(this.state.tableKey, this.state.treeNodePk)
     }
+
+    getName(key,queryParams,type){
+        return new Promise((resolve, reject) => {
+            let params = Object.assign({},queryParams);
+            let url = '/iuapmdm/reference/mdmref/'
+            params['type_code'] = key
+            if(type === 'grid'){
+                url += 'gridname';
+            }else if(type === 'tree'){
+                url += 'treename';
+            }else if(type === 'treegrid'){
+                url += 'gridname';
+            }
+            request(url,{
+                method: "GET",
+                param: params 
+            }).then(( resp ) =>{
+                resolve(resp.data)
+            }).catch(() =>{
+                reject()
+            });
+        });
+            
+    }
+
+    async componentWillReceiveProps(nextProps){
+        let value = nextProps.value;
+        let nowValue = this.props.value;
+        if(value != nowValue && this.state.type){
+            try{
+                let valueObj = JSON.parse(value);
+                // console.log('valueObj:::',valueObj);
+                if(valueObj.refpk && !valueObj.refname){
+                    valueObj.refname = await this.getName(valueObj.refpk,this.state.queryParams,this.state.type);
+                    value = JSON.stringify(valueObj);
+                }
+            }catch(e){
+
+            }
+            
+            this.setState({
+                value: value
+            })
+            this.forceUpdate()
+        }
+    }
+    
     render() {
-        const {title,pkField,writeField,showLoading,columnsData,tableData,treeData} = this.state;
-        let type = this.state.type;
-        let value = this.props.value;
-        let disabled = this.props.disabled;
-        let placeholder = this.props.placeholder; 
+        const {title,pkField,writeField,showLoading,columnsData,tableData,treeData,type,value} = this.state;
+        const { disabled,placeholder, onSave ,onChange} = this.props;
         const props = {
             title: title,
             valueField: pkField,
@@ -334,13 +407,32 @@ class MdmRefComp extends Component {
             value:value,
             disabled:disabled,
             placeholder: placeholder,
+            emptyBut: true,
             canClickGoOn:()=>{
-                this.getData();
+                this.getDataFun();
                 return true
             }
         }
-        if(this.props.onChange)
+        // 由于参照的onchange存在bug，1选择2然后再选择1不触发onchange，因为改为onsave
+        if(this.props.onChange && this.props.onSave){
             props.onChange = this.props.onChange;
+            props.onSave = this.props.onSave;
+        }else{
+            if(this.props.onChange){
+                props.onSave = (value) =>{
+                    let obj = value[0] || {};
+                    let v = {
+                        refname: obj[writeField] || '',
+                        refpk: obj[pkField] || ''
+                    }
+                    this.props.onChange.call('this',JSON.stringify(v))
+                }
+            }
+            if(this.props.onSave){
+                props.onSave = this.props.onSave;
+            }
+        }
+            
         let refProps;
         if(type === 'grid'){
             refProps = Object.assign({},{
@@ -350,6 +442,7 @@ class MdmRefComp extends Component {
                 pageCount: this.pageCount,
                 totalElements: this.totalElements,
                 pageSize: this.pageSize,
+                size : 'md',
                 currPageIndex: this.currPageIndex,
                 dataNumSelect: this.dataNumSelect,
                 handlePagination: this.handlePagination,
@@ -364,6 +457,7 @@ class MdmRefComp extends Component {
             refProps = Object.assign({},{
                 showLoading: showLoading,
                 nodeDisplay: "{" + writeField + "}",
+                searchable: false, 
                 treeData: treeData
             });
         }else if(type === 'treegrid'){
@@ -399,7 +493,7 @@ class MdmRefComp extends Component {
         }
         
         return (
-          <div>
+          <div className={this.props.className}>
               { 
                 this.getRender(props,refProps)
               }

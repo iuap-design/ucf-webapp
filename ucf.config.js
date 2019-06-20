@@ -4,11 +4,12 @@
  */
 require('@babel/polyfill');
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin'); 
 
 module.exports = (env, argv) => {
     const isBuild = argv[0] === 'build';
     return {
-        context: "",// 上下文对象
+        context: '',
         // 启动所有模块，默认这个配置，速度慢的时候使用另外的配置
         // bootList: true,
         // 启动这两个模块，启动调试、构建
@@ -75,10 +76,14 @@ module.exports = (env, argv) => {
         css: {
             modules: false
         },
-        // 全局环境变量,GROBAL_HTTP_CTX build时需要设置项目名称
-        global_env: {
-            GROBAL_HTTP_CTX: isBuild?"/ucf-webapp":JSON.stringify("/mock/936"),
+         // 全局环境变量
+         global_env: {
+            __MODE__: JSON.stringify(env),
+            GROBAL_HTTP_CTX: isBuild ? JSON.stringify("/ucf-webapp") : JSON.stringify("/mock/936"),
+            'process.env.NODE_ENV': JSON.stringify(env),
+            'process.env.STATIC_HTTP_PATH':env == 'development'?JSON.stringify("/static"):JSON.stringify("../static")
         },
+        static: 'ucf-common/src',
         // 别名配置
         alias: {
             components: path.resolve(__dirname, 'ucf-common/src/components/'),
@@ -89,15 +94,24 @@ module.exports = (env, argv) => {
         },
         // 构建排除指定包
         externals: {
-            //'tinper-bee': 'TinperBee'
+            "react": "React",
+            "react-dom": "ReactDOM",
+            "tinper-bee": "TinperBee",
+            "prop-types": "PropTypes"
         },
         // 加载器Loader
         loader: [],
         // 调试服务需要运行的插件
         devPlugins: [],
         // 构建服务需要运行的插件
-        buildPlugins: [],
-        open_source_map: isBuild,
-        res_extra: isBuild
+        buildPlugins: [
+            new CopyWebpackPlugin([
+                { 
+                from: __dirname+'/ucf-common/src/static/', 
+                to: __dirname+'/ucf-publish/iuap-pap-demo-fe/static/' }
+            ]),
+        ],
+        open_source_map: false,
+        res_extra:true
     }
 }

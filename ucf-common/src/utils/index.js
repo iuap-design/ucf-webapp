@@ -1,6 +1,6 @@
 import {Message} from 'tinper-bee';
 import axios from "axios";
-
+import cloneDeep from 'clone-deep';
 
 export const success = (msg) => {
     Message.create({content: msg, color: 'success', duration: 3});
@@ -27,11 +27,13 @@ export const processData = (response, successMsg) => {
     try {
         if (typeof response != 'object') {
             Error('数据返回出错：1、请确保服务运行正常；2、请确保您的前端工程代理服务正常；3、请确认您已在本地登录过应用平台');
-            throw new Error('数据返回出错：1、请确保服务运行正常；2、请确保您的前端工程代理服务正常；3、请确认您已在本地登录过应用平台')
+            // throw new Error('数据返回出错：1、请确保服务运行正常；2、请确保您的前端工程代理服务正常；3、请确认您已在本地登录过应用平台')
+            return {result:null};
         }
         if (response.status == '401') {
             Error(`错误:${(response.data.msg)}`);
-            throw new Error(`错误:${(response.data.msg)}`);
+            // throw new Error(`错误:${(response.data.msg)}`);
+            return {result:null};
         }
         if (response.status == '200') {
             let data = response.data;
@@ -46,14 +48,16 @@ export const processData = (response, successMsg) => {
                 return {result};
             } else if (repMsg == 'fail_field') {
                 Error(`错误:${(data && data.detailMsg && convert(data.detailMsg.msg)) || '数据返回出错'}`);
-                throw new Error(`错误:${(data && data.detailMsg && convert(data.detailMsg.msg)) || '数据返回出错'}`)
+                // throw new Error(`错误:${(data && data.detailMsg && convert(data.detailMsg.msg)) || '数据返回出错'}`)
+                return {result:null};
             } else {
                 Error(`错误:${convert(data.message)}`);
-                throw new Error(`错误:${convert(data.message)}`);
+                // throw new Error(`错误:${convert(data.message)}`);
+                return {result:null};
             }
         } else {
             Error('请求错误');
-            throw new Error(`错误:${(response.status)}`);
+            // throw new Error(`错误:${(response.status)}`);
         }
 
     } catch (e) {
@@ -302,10 +306,9 @@ export function handleChild(parentArray, child, type) {
     return resChild;
 }
 
-
-// 数组深克隆
+// 深度拷贝
 export function deepClone(data) {
-    return JSON.parse(JSON.stringify(data));
+    return cloneDeep(data);
 }
 
 /**
@@ -617,3 +620,25 @@ export function getPageParam(value, type, pageParams) {
     return {pageIndex, pageSize}
 
 }
+
+function isString(str){ 
+    return (typeof str=='string')&&str.constructor==String; 
+} 
+
+
+/**
+ *@description 处理form的 validateFields 返回空格问题。
+ * @param {*} 数据源
+ */
+export function getValidateFieldsTrim(values) {
+    for (const key in values) {
+        if (values.hasOwnProperty(key)) {
+            const element = values[key];
+            if(isString(element)){
+                values[key] = (values[key]).trim();
+            }
+        }
+    }
+    return values;
+}
+

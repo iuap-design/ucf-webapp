@@ -3,7 +3,6 @@
  */
 
 //React导入
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import React, { Component } from 'react';
 //类型校验
 import PropTypes from 'prop-types';
@@ -13,7 +12,7 @@ import moment from 'moment';
 import schema from 'async-validator';
 
 //日期组件
-import DatePicker from "tinper-bee/lib/Datepicker";
+import DatePicker from "bee-datepicker";
 //本地化日期
 import zhCN from "rc-calendar/lib/locale/zh_CN";
 
@@ -39,7 +38,7 @@ const propTypes = {
 const defaultProps = {
     field: '',
     index: '',
-    message: <FormattedMessage id="js.com.Row.0001" defaultMessage="请输入此字段" />,
+    message: '请输入此字段',
     data: [],
     required: false,
     isFlag: false,
@@ -132,7 +131,7 @@ class DateField extends Component {
                     onChange={this.handlerChange}
                     format={'YYYY-MM-DD'}
                     locale={zhCN}
-                    placeholder={this.props.intl.formatMessage({id:"js.com.Row.0002", defaultMessage:"选择年"})}
+                    placeholder={"选择年"}
                 />
             </FieldWrap>
         );

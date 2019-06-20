@@ -1,15 +1,15 @@
-import { FormattedMessage, injectIntl } from 'react-intl';
 import React, {Component} from 'react'
 import {actions} from "mirrorx";
-import { FormControl, Select, InputNumber} from "tinper-bee";
+import {FormControl, Select} from 'tinper-bee'
 import FormList from 'components/FormList';
 import DatePicker from "bee-datepicker";
-// import {RefIuapDept} from 'components/RefViews';
+import {RefIuapDept} from 'components/RefViews';
 import SearchPanel from 'components/SearchPanel';
 import SelectMonth from 'components/SelectMonth';
-
-import {deepClone, mergeListObj, delListObj} from "utils";
-import { dateLocal } from 'components/Intl'
+import InputNumber from 'bee-input-number';
+// import FormError from 'components/FormError';
+import {deepClone, mergeListObj, delListObj,getValidateFieldsTrim} from "utils";
+import zhCN from "rc-calendar/lib/locale/zh_CN";
 
 import './index.less'
 
@@ -30,15 +30,16 @@ class SearchAreaForm extends Component {
      * @param {*} values 表单数据
      */
     search = () => {
-        this.props.form.validateFields((err, values) => {
+        this.props.form.validateFields((err, _values) => {
+            let values = getValidateFieldsTrim(_values);
             // 年份特殊处理
             if (values.year) {
                 values.year = values.year.format('YYYY');
             }
             // 参照特殊处理
-            const {dept} = values;
+            let {dept} = values;
             if (dept) {
-                const {refpk} = JSON.parse(dept);
+                let {refpk} = JSON.parse(dept);
                 values.dept = refpk;
             }
 
@@ -65,12 +66,13 @@ class SearchAreaForm extends Component {
      */
     reset = () => {
         this.props.form.resetFields();
-        this.props.form.validateFields((err, values) => {
+        this.props.form.validateFields((err, _values) => {
+            let values = getValidateFieldsTrim(_values);
             let queryParam = deepClone(this.props.queryParam);
             let {whereParams} = queryParam;
 
-            const arrayNew = [];
-            for (const field in values) {
+            let arrayNew = [];
+            for (let field in values) {
                 arrayNew.push({key: field});
             }
             queryParam.whereParams = delListObj(whereParams, arrayNew, "key"); //合并对象
@@ -86,14 +88,14 @@ class SearchAreaForm extends Component {
      */
 
     getSearchPanel = (values) => {
-        const list = [];
+        let list = [];
         for (let key in values) {
 
             if (values[key] || ((typeof values[key]) === "number")) {
                 let condition = "LIKE";
                 // 这里通过根据项目自己优化
-                const equalArray = ["code", "month"]; // 当前字段查询条件为等于
-                const greaterThanArray = ["serviceYearsCompany"]; //  当前字段查询条件为大于等于
+                let equalArray = ["code", "month"]; // 当前字段查询条件为等于
+                let greaterThanArray = ["serviceYearsCompany"]; //  当前字段查询条件为大于等于
                 if (equalArray.includes(key)) { // 查询条件为 等于
                     condition = "EQ";
                 }
@@ -109,69 +111,69 @@ class SearchAreaForm extends Component {
 
 
     render() {
-        const _this = this;
-        const {form,onCallback} = _this.props;
-        const {getFieldProps} = form;
+
+        let {form,onCallback} = this.props;
+        let {getFieldProps} = form;
         return (
             <SearchPanel
                 reset={this.reset}
                 onCallback={onCallback}
                 search={this.search}
-                intl={this.props.intl}
             >
                 <FormList size="sm">
                     <FormItem
-                        label={<FormattedMessage id="js.com.Sea5.0001" defaultMessage="员工编号" />}
+                        label="员工编号"
                     >
-                        <FormControl placeholder={this.props.intl.formatMessage({id:"js.com.Sea5.0002", defaultMessage:"精确查询"})} {...getFieldProps('code', {initialValue: ''})}/>
+                        <FormControl placeholder='精确查询' {...getFieldProps('code', {initialValue: ''})}/>
                     </FormItem>
 
                     <FormItem
-                        label={<FormattedMessage id="js.com.Sea5.0003" defaultMessage="员工姓名" />}
+                        label="员工姓名"
                     >
-                        <FormControl placeholder={this.props.intl.formatMessage({id:"js.com.Sea5.0004", defaultMessage:"模糊查询"})} {...getFieldProps('name', {initialValue: ''})}/>
+                        <FormControl placeholder='模糊查询' {...getFieldProps('name', {initialValue: ''})}/>
                     </FormItem>
 
-                    {/* <FormItem
-                        label={<FormattedMessage id="js.com.Sea5.0005" defaultMessage="部门" />}
+                    <FormItem
+                        label="部门"
                     >
                         <RefIuapDept {...getFieldProps('dept', {initialValue: ''})}/>
-                    </FormItem> */}
+                    </FormItem>
 
                     <FormItem
-                        label={<FormattedMessage id="js.com.Sea5.0006" defaultMessage="司龄" />}
+                        label="司龄"
                     >
                         <InputNumber
                             min={0}
+                            max={99}
                             iconStyle="one"
-                            {...getFieldProps('serviceYearsCompany', {initialValue: "",})}
+                            {...getFieldProps('serviceYearsCompany', {initialValue: "0",})}
                         />
                     </FormItem>
 
                     <FormItem
-                        label={<FormattedMessage id="js.com.Sea5.0007" defaultMessage="年份" />}
+                        label="年份"
                     >
                         <YearPicker
                             {...getFieldProps('year', {initialValue: null})}
                             format={format}
-                            locale={dateLocal}
-                            placeholder={this.props.intl.formatMessage({id:"js.com.Sea5.0008", defaultMessage:"选择年"})}
+                            locale={zhCN}
+                            placeholder="选择年"
                         />
                     </FormItem>
 
                     <FormItem
-                        label={<FormattedMessage id="js.com.Sea5.0009" defaultMessage="月份" />}
+                        label="月份"
                     >
                         <SelectMonth {...getFieldProps('month', {initialValue: ''})} />
                     </FormItem>
 
                     <FormItem
-                        label={<FormattedMessage id="js.com.Sea5.0010" defaultMessage="是否超标" />}
+                        label="是否超标"
                     >
                         <Select {...getFieldProps('exdeeds', {initialValue: ''})}>
-                            <Option value=""><FormattedMessage id="js.com.Sea5.0011" defaultMessage="请选择" /></Option>
-                            <Option value="0"><FormattedMessage id="js.com.Sea5.0012" defaultMessage="未超标" /></Option>
-                            <Option value="1"><FormattedMessage id="js.com.Sea5.0013" defaultMessage="超标" /></Option>
+                            <Option value="">请选择</Option>
+                            <Option value="0">未超标</Option>
+                            <Option value="1">超标</Option>
                         </Select>
                     </FormItem>
                 </FormList>
@@ -182,4 +184,4 @@ class SearchAreaForm extends Component {
     }
 }
 
-export default FormList.createForm()(injectIntl(SearchAreaForm))
+export default FormList.createForm()(SearchAreaForm)

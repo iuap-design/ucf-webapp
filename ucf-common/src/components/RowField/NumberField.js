@@ -1,11 +1,7 @@
-/**
- * InputNumber (数值选择框)
- */
-
 //React导入
-import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import React, { Component } from 'react';
-import { InputNumber } from 'tinper-bee'
+import {FormControl, Select} from 'tinper-bee'
+import InputNumber from 'bee-input-number';
 //类型校验
 import PropTypes from 'prop-types';
 //验证组件 https://www.npmjs.com/package/async-validator
@@ -39,7 +35,7 @@ const propTypes = {
 const defaultProps = {
     field: '',
     index: '',
-    message: <FormattedMessage id="js.com.Row5.0001" defaultMessage="请输入此字段" />,
+    message: '请输入此字段',
     data: [],
     required: false,
     isFlag: false,
@@ -57,8 +53,11 @@ class NumberField extends Component {
         this.state = {
             value: props.value,//组件的值
             flag: false,//是否编辑过
-            error: false//校验是否有错误
+            error: false,//校验是否有错误
+            message:props.message,
+            required:props.required
         }
+        this._value = props.value;
     }
 
     /**
@@ -81,28 +80,66 @@ class NumberField extends Component {
      * @param {string} value
      */
     handlerChange = (value) => {
-        let { onChange, field, index, status } = this.props;
+        let { onChange, field, index, status,max,min } = this.props;
         //处理是否有修改状态改变、状态同步之后校验输入是否正确
         this.setState({ value, flag: status == 'edit' }, () => {
             this.validate();
         });
-        //回调外部函数
-        onChange && onChange(field, value, index);
+        value = parseFloat(value);
+        if(value > max || value < 0){
+            this.setState({
+                required:true,
+            },()=>{ 
+                this.onChangeValidate();
+            })
+        }else{
+            this.setState({
+                message:"",
+                error:false,
+                required:false
+            })
+            this._value = value;
+            //回调外部函数
+            onChange && onChange(field, value, index);
+        }
     }
+
+    /**
+     * 校验方法
+     *
+     */
+    onChangeValidate = () => {
+        let { field, index, onValidate ,max,min} = this.props;
+        let { value ,required,error} = this.state;
+        //设置校验规则
+        let descriptor = {
+            [field]: { type: "number", required:"false" }
+        }
+        let validator = new schema(descriptor);
+        validator.validate({ [field]: value }, (errors, fields) => {
+            this.setState({
+                error: true,
+                message:"输入值,最大值为 "+max+" ,最小为 "+min
+            });
+        });
+    }
+
     /**
      * 校验方法
      *
      */
     validate = () => {
-        let { required, field, index, onValidate } = this.props;
-        let { value } = this.state;
+        // return null;
+        let { field, index, onValidate,max } = this.props;
+        let { value ,required} = this.state;
         //设置校验规则
         let descriptor = {
             [field]: { type: "number", required }
         }
+        value = parseFloat(value);
         let validator = new schema(descriptor);
         validator.validate({ [field]: value }, (errors, fields) => {
-            if (errors) {
+            if (errors || value > max) { 
                 this.setState({
                     error: true
                 });
@@ -114,10 +151,12 @@ class NumberField extends Component {
             onValidate && onValidate(field, fields, index);
         });
     }
-    render() {
-        let { value, error, flag } = this.state;
 
-        let { className, message, required, iconStyle, max, min, step, precision } = this.props;
+
+    render() {
+        let { value, error, flag ,required,message} = this.state;
+
+        let { className, iconStyle, max, min, step, precision } = this.props;
 
         return (
             <FieldWrap
@@ -131,9 +170,8 @@ class NumberField extends Component {
                     value={value}
                     onChange={this.handlerChange}
                     iconStyle={iconStyle}
-                    max={max}
-                    min={min}
                     step={step}
+                    max={max}
                     precision={precision}
                 />
             </FieldWrap>
