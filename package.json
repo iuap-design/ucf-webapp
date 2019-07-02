@@ -18,8 +18,8 @@
   },
   "homepage": "https://github.com/iuap-design/ucf-webapp#readme",
   "devDependencies": {
-    "ucf-scripts": "^1.1.9",
-    "copy-webpack-plugin": "^5.0.3"
+    "copy-webpack-plugin": "^5.0.3",
+    "ucf-scripts": "^1.2.1"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.0",
