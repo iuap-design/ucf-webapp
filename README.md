@@ -216,6 +216,7 @@ module.exports = () => {
 
 ## 8. 功能配置节点说明
 
+最新配置请查看文档：https://www.yuque.com/ucf-web/book/zfy8x1
 
 配置项 | 说明 | 默认值 | 可选值 | 备注
 ---|---|---|---|---
