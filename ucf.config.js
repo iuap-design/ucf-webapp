@@ -98,7 +98,6 @@ module.exports = (env, argv) => {
                 }
             ])
         ],
-        open_source_map: false,
         res_extra: true
     }
 }
